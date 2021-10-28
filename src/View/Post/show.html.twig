@@ -1,0 +1,30 @@
+{% extends "layout.html.twig" %}
+{% block title %}
+	{{parent()}}{{post.theme}}
+	-
+	{{post.subject}}
+{% endblock %}
+{% block content %}
+	<h1>{{post.subject}}</h1>
+	<div>
+		{{post.user}}
+	</div>
+	<div>
+		{{post.date}}
+	</div>
+	<div>
+		{{post.message}}
+	</div>
+	{% for message in messages %}
+		<div>
+			{{message.user}}
+		</div>
+		<div>
+			{{message.date}}
+		</div>
+		<div>
+			{{message.message}}
+		</div>
+
+	{% endfor %}
+{% endblock %}
