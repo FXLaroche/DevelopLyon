@@ -1,0 +1,30 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+<h1>Se créer un compte</h1>
+
+<form method="post">
+    <div>
+        <label for="nickname">Identifiant :</label>
+        <input type="text" name="nickname">
+    </div>
+
+    <div>
+        <label for="email">Email :</label>
+        <input type="text" name="email">
+    </div>
+
+    <div>
+        <label for="password">Mot de passe :</label>
+        <input type="text" name="password">
+    </div>
+
+    <input type="submit" value="S'inscrire">
+
+
+</form>
+
+<a href="/users">Retourner sur l'index</a>
+
+{% endblock %}
