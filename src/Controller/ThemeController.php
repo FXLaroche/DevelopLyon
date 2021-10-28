@@ -49,9 +49,12 @@ class ThemeController extends AbstractController
             $themeManager->update($theme);
             header('Location: /themes/show?id=' . $id);
         }
+        $categoryManager = new CategoryManager();
+        $categorys = $categoryManager->selectAll();
 
         return $this->twig->render('Theme/edit.html.twig', [
             'theme' => $theme,
+            'categorys' => $categorys
         ]);
     }
 
