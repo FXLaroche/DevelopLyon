@@ -1,0 +1,15 @@
+{# TODO : manage errors display #}
+
+<form method="post">
+	<input type="hidden" value="{{ theme.id }}" name="id">
+	<label for="name">Nom du thème </label>
+	<input type="text" value="{{ theme.name }}" name="name">
+	<label for="category_id">Selectionner la categorie du thème</label>
+	<select name="category_id" id="category_id">
+		<option value="">--Please choose an option--</option>
+		{% for category in categorys %}
+			<option value="{{ category.id }}">{{ category.name }}</option>
+		{% endfor %}
+	</select>
+	<input type="submit" value="Valider">
+</form>

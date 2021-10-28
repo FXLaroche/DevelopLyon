@@ -1,0 +1,7 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h1>Edit theme {{ theme.name }}</h1>
+    {% include 'Theme/_form.html.twig' %}
+    <a href="/themes/show?id={{ theme.id }}">Back</a>
+{% endblock %}
