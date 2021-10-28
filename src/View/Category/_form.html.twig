@@ -1,0 +1,10 @@
+{# TODO : manage errors display #}
+
+<form method="post">
+	<input type="hidden" value="{{ category.id }}" name="id">
+	<label for="name">Nom de la categorie</label>
+	<input type="text" value="{{ category.name }}" name="name">
+	<label for="picture_link">Logo de la categorie</label>
+	<input type="file" value="{{ category.picture_link }}" name="picture_link">
+	<input type="submit" value="Valider">
+</form>

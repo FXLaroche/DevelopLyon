@@ -1,0 +1,12 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h1>Theme {{ theme.name }}</h1>
+    <p>{{ theme.id }}. {{ theme.name }} . {{ theme.category_id }}</p>
+    <a href="/themes/edit?id={{ theme.id }}">Edit</a>
+    <form action="/themes/delete" method="POST">
+        <input type="hidden" name="id" value="{{ theme.id }}">
+        <button>Delete</button>
+    </form>
+    <a href="/themes">Back</a>
+{% endblock %}

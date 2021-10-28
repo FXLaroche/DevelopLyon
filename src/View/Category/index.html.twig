@@ -1,0 +1,13 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h1>Categorys</h1>
+    <ul>
+        {% for category in categorys %}
+            <li><a href="/categorys/show?id={{ category.id }}">{{ category.id }}. {{ category.name }}.{{ category.picture_link }}</a></li>
+        {% else %}
+            <li>Nothing to display</li>
+        {% endfor %}
+    </ul>
+    <a href="/categorys/add">Ajouter</a>
+{% endblock %}
