@@ -1,13 +1,23 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <h1>Users</h1>
-    <ul>
+    <h1>Liste des utilisateurs</h1>
+        <div class="user_list">
         {% for user in users %}
-            <li><a href="/user/show?id={{ user.id }}">{{ user.id }}. {{ user.nickname }}</a></li>
+        <div class="user">
+        <input type="checkbox" name="user" value ="{{user.id}}">
+            <a href="/user/show?id={{ user.id }}">{{ user.nickname }}</a>
+        </div>
         {% else %}
-            <li>Nothing to display</li>
+            <p>Aucun utilisateur</p>
         {% endfor %}
-    </ul>
-    <a href="/user/add">Ajouter</a>
+        </div>
+    <section class="section_user_button">
+        <div class="user_button">
+            <a href="/user/add">Ajouter</a>
+        </div>
+        <div class="user_button">
+            <a href="/user/add">Supprimer l'utilisateur</a>
+        </div>
+    </section>
 {% endblock %}

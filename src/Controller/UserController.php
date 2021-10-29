@@ -9,12 +9,28 @@ class UserController extends AbstractController
     public function add(): string
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // clean $_POST data
             $user = array_map('trim', $_POST);
 
+            if (empty($user['nickname'])) {
+                $errors = 'The nickname is required';
+                return $errors;
+            }
+
+            elseif (empty($user['email'])) {
+                $errors = 'The e-mail is required';
+                return $errors;
+            }
+
+            elseif (empty($user['password'])) {
+                $errors = 'The password is required';
+                return $errors;
+            }
+            
+            if (empty($errors)) {
             $userManager = new UserManager();
             $userManager->insert($user);
             header('Location:/users');
+            }
         }
 
         return $this->twig->render('User/add.html.twig');
@@ -40,18 +56,11 @@ class UserController extends AbstractController
     {
         $userManager = new UserManager();
         $user = $userManager->selectOneById($id);
-
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
             $user = array_map('trim', $_POST);
-
-            // TODO validations (length, format...)
-
-            // if validation is ok, update and redirection
             $userManager->update($user);
             header('Location: /user/show?id=' . $id);
         }
-
         return $this->twig->render('User/edit.html.twig', [
             'user' => $user,
         ]);
