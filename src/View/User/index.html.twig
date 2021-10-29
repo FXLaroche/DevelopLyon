@@ -13,6 +13,10 @@
         {% endfor %}
         </div>
     <section class="section_user_button">
+        <form action="/user/delete" method="POST">
+            <input type="hidden" name="id" value="{{ user.id }}">
+            <button>Delete</button>
+        </form>
         <div class="user_button">
             <a href="/user/add">Ajouter</a>
         </div>

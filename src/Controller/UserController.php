@@ -14,22 +14,17 @@ class UserController extends AbstractController
             if (empty($user['nickname'])) {
                 $errors = 'The nickname is required';
                 return $errors;
-            }
-
-            elseif (empty($user['email'])) {
+            } elseif (empty($user['email'])) {
                 $errors = 'The e-mail is required';
                 return $errors;
-            }
-
-            elseif (empty($user['password'])) {
+            } elseif (empty($user['password'])) {
                 $errors = 'The password is required';
                 return $errors;
             }
-            
             if (empty($errors)) {
-            $userManager = new UserManager();
-            $userManager->insert($user);
-            header('Location:/users');
+                $userManager = new UserManager();
+                $userManager->insert($user);
+                header('Location:/users');
             }
         }
 
@@ -64,5 +59,14 @@ class UserController extends AbstractController
         return $this->twig->render('User/edit.html.twig', [
             'user' => $user,
         ]);
+    }
+    public function delete()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = trim($_POST['id']);
+            $userManager = new UserManager();
+            $userManager->delete((int)$id);
+            header('Location:/users');
+        }
     }
 }

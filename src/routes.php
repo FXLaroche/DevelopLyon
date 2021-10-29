@@ -11,6 +11,7 @@ return [
     'user/add' => ['UserController', 'add',],
     'user/show' => ['UserController', 'show', ['id']],
     'user/edit' => ['UserController', 'edit', ['id']],
+    'user/delete' => ['UserController', 'delete',],
     'users' => ['UserController', 'index'],
     'items' => ['ItemController', 'index',],
     'items/edit' => ['ItemController', 'edit', ['id']],
