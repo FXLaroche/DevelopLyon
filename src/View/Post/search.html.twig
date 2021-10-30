@@ -1,0 +1,31 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Résultats de recherche{% endblock %}
+
+{% block stylesheet %}<link rel="stylesheet" href="/assets/css/searchStyle.css">{% endblock %}
+
+{% block content %}
+
+	<div class="container-fluid">
+
+		<h1>Résultat de votre recherche</div>
+
+		<div class="searchResult container-fluid">
+			{% for result in results %}
+
+				<div class="post container-fluid">
+					<div class="data_user .col-md-3">
+						<img src= '"__DIR__ . /../../../upload/".{{ result.picture_link }}' alt="{{ result.nickname }} photo">
+						<p>{{ result.nickname }}</p>
+					</div>
+					<div class="data_post .col-md-9">
+						<p>{{ result.subject }}</p>
+						<p>{{ result.date }}</p>
+					</div>
+				</div>
+
+			{% endfor %}
+		</div>
+	</div>
+
+{% endblock %}
