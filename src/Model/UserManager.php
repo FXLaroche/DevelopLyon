@@ -22,9 +22,9 @@ class UserManager extends AbstractManager
     {
         $statement = $this->pdo->prepare("UPDATE " . self::TABLE . " SET 
         nickname = :nickname AND password = :password AND email = :email WHERE id=:id");
-        $statement->bindValue('nickname', $user['nickname'], \PDO::PARAM_STR);
-        $statement->bindValue('password', $user['password'], \PDO::PARAM_STR);
-        $statement->bindValue('email', $user['email'], \PDO::PARAM_STR);
+        $statement->bindValue(':nickname', $user['nickname'], \PDO::PARAM_STR);
+        $statement->bindValue(':password', $user['password'], \PDO::PARAM_STR);
+        $statement->bindValue(':email', $user['email'], \PDO::PARAM_STR);
         $statement->bindValue('id', $user['id'], \PDO::PARAM_INT);
 
         return $statement->execute();

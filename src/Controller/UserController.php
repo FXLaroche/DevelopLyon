@@ -20,8 +20,7 @@ class UserController extends AbstractController
             } elseif (empty($user['password'])) {
                 $errors = 'The password is required';
                 return $errors;
-            }
-            if (empty($errors)) {
+            } else {
                 $userManager = new UserManager();
                 $userManager->insert($user);
                 header('Location:/users');
