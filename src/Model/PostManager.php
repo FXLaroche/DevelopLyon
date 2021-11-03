@@ -21,5 +21,4 @@ class PostManager extends AbstractManager
         $statement->execute();
         return $statement->fetchAll();
     }
-
 }
