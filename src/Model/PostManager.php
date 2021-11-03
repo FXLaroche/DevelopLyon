@@ -8,17 +8,17 @@ class PostManager extends AbstractManager
 {
     public const TABLE = 'post';
 
-    public function create(array $postData): int
+    public function create(array $postData, int $themeId): int
     {
-        $query = "INSERT INTO " . self::TABLE . "(subject, user_id, theme_id, message) 
-            VALUES(:subject, (SELECT id FROM user WHERE nickname=:nickname), 
-            (SELECT id FROM theme WHERE name=:theme_name), :message)";
+        $query = "INSERT INTO " . self::TABLE . "(subject, user_id, theme_id, message, keyword) 
+            VALUES(:subject, :user_id, :theme_id, :message, :keyword)";
         $statement = $this->pdo->prepare($query);
 
         $statement->bindValue(':subject', $postData['subject'], \PDO::PARAM_STR);
-        $statement->bindValue(':nickname', $postData['nickname'], \PDO::PARAM_STR);
-        $statement->bindValue(':theme_name', $postData['theme_name'], \PDO::PARAM_STR);
+        $statement->bindValue(':user_id', $postData['user_id'], \PDO::PARAM_STR);
+        $statement->bindValue(':theme_id', $themeId, \PDO::PARAM_INT);
         $statement->bindValue(':message', $postData['message'], \PDO::PARAM_STR);
+        $statement->bindValue(':keyword', $postData['keyword'], \PDO::PARAM_STR);
 
         $statement->execute();
 

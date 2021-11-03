@@ -23,6 +23,7 @@ class ItemController extends AbstractController
      */
     public function show(int $id): string
     {
+        var_dump($_GET);
         $itemManager = new ItemManager();
         $item = $itemManager->selectOneById($id);
 
