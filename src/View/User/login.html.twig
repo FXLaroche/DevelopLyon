@@ -2,13 +2,9 @@
 
 {% block content %}
 
-<h1>Se créer un compte</h1>
+<h1>Se connecter</h1>
 
 <form method="post">
-    <div class="sign_in nickname">
-        <label for="nickname">Identifiant :</label>
-        <input type="text" name="nickname" placeholder="Nom d'utilisateur">
-    </div>
 
     <div class="sign_in email">
         <label for="email">Email :</label>
@@ -20,9 +16,11 @@
         <input type="password" name="password" placeholder="Mot de passe">
     </div>
     <div class="sign_in">
-        <input type="submit" value="S'inscrire" class="input_button">
+        <input type="submit" value="Se connecter" class="input_button">
     </div>
 </form>
+
+<a href="/users">Mot de passe oublié ?</a>
 
 <a href="/users">Retourner sur l'index</a>
 
