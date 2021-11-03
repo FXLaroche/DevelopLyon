@@ -21,10 +21,8 @@ class UserController extends AbstractController
                 $errors = 'The password is required';
                 return $errors;
             } else {
-
                 $userManager = new UserManager();
                 $userManager->registerUser($user);
-                echo "<script>alert(\"Vous êtes inscrits, maintenant il ne vous reste plus qu'à vous connecter !\")</script>";
                 header('Location:/user/login');
             }
         }
@@ -77,16 +75,13 @@ class UserController extends AbstractController
         $connexion = $userManager->login($user);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user = array_map('trim', $_POST);
-            if (isset($user['email']) && $user['password'])
-            {
-                if($connexion == 1) 
-                {
+            if (isset($user['email']) && $user['password']) {
+                if ($connexion == 1) {
                     return $this->twig->render('User/index.html.twig', [
                         'user' => $user,
                     ]);
                 }
-     
-        }
+            }
         }
     }
 }
