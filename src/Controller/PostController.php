@@ -37,9 +37,9 @@ class PostController extends AbstractController
                 $error[] = "Alas! you have too many keywords!";
             }
 
-            /*if ($newPost['user_id'] != $_SESSION['user_id'])
-                $error[] = 'Who do you think you are?!';*/
-            //set as commentary, needs to be unlocked once the Session part has been coded.
+            if ($newPost['user_id'] != $_SESSION['user_id']) {
+                $error[] = 'Who do you think you are?!';
+            }
 
             if (empty($error)) {
                 $postId = $this->postManager->create($newPost, $themeId);
