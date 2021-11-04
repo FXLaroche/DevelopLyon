@@ -1,0 +1,13 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h1>Liste des posts</h1>
+    <ul>
+        {% for post in posts %}
+            <li><a href="/posts/show?id={{ post.id }}">{{ post.id }}. {{ post.subject }}</a></li>
+        {% else %}
+            <li>Nothing to display</li>
+        {% endfor %}
+    </ul>
+    <a href="/posts/add">Ajouter</a>
+{% endblock %}

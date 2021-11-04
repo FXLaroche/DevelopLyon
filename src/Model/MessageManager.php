@@ -8,7 +8,7 @@ class MessageManager extends AbstractManager
 
     public function insert(array $message): int
     {
-        $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE . " (user_id, post_id, date, message) 
+        $statement = $this->pdo->prepare("INSERT INTO message" . self::TABLE . " (user_id, post_id, date, message) 
         VALUES (:user_id, :post_id, :date, :message)");
 
         $statement->bindValue('user_id', $message['user_id'], \PDO::PARAM_INT);
