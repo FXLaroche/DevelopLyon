@@ -27,7 +27,8 @@ abstract class AbstractController
         $this->twig->addExtension(new DebugExtension());
     }
 
-    public function twigRender (string $template, array $params) {
+    public function twigRender(string $template, array $params): string
+    {
         $searchManager = new SearchManager();
         $searchs = $searchManager->selectAll();
         $params['searchs'] = $searchs;
