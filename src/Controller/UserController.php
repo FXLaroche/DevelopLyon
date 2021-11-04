@@ -68,4 +68,29 @@ class UserController extends AbstractController
             header('Location:/users');
         }
     }
+
+    public function login()
+    {
+        $errors  = [];
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $loginData = array_map('trim', $_POST);
+            $loginData = array_map('htmlentities', $loginData);
+            $email = $loginData['email'];
+            $password = $loginData['password'];
+
+            $userManager = new UserManager();
+            $loginFromDataBase = $userManager->getLoginData($email);
+
+            if ($password === $loginFromDataBase['password']) {
+                foreach ($loginFromDataBase as $key => $value) {
+                    $_SESSION[$key] = $value;
+                }
+                header("Location:/");
+            }
+            $errors[]  = "Email or password invalid!";
+        }
+
+        return $this->twig->render('User/login.html.twig', ['errors' => $errors]);
+    }
 }

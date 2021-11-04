@@ -1,0 +1,32 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+	{{parent()}}Login
+{% endblock %}
+
+{% block content %}
+
+	<form action="" method="post">
+		<div>
+			<label for="email">Email:
+			</label>
+		</div>
+		<div>
+			<input type="email" name="email" id="email" maxlength="255" required>
+		</div>
+		<div>
+			<label for="password">Password:
+			</label>
+		</div>
+		<div>
+			<input type="password" name="password" id="password" required>
+		</div>
+		<div>
+			<input type="submit" value="Send">
+		</div>
+	</form>
+
+	{% for error in errors %}
+		{{error}}
+	{% endfor %}
+{% endblock %}

@@ -29,4 +29,14 @@ class UserManager extends AbstractManager
 
         return $statement->execute();
     }
+
+    public function getLoginData(string $email): array
+    {
+        $query = "SELECT * FROM " . self::TABLE . " WHERE email=:email";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue('email', $email, \PDO::PARAM_STR);
+        $statement->execute();
+
+        return $statement->fetch();
+    }
 }

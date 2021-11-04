@@ -9,6 +9,7 @@
 return [
     '' => ['HomeController', 'index',],
     'user/add' => ['UserController', 'add',],
+    'user/login' => ['UserController', 'login',],
     'user/show' => ['UserController', 'show', ['id']],
     'user/edit' => ['UserController', 'edit', ['id']],
     'user/delete' => ['UserController', 'delete',],
