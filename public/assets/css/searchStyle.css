@@ -1,0 +1,9 @@
+h1 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.post {
+    border: solid;
+    background-color: blanchedalmond;
+    margin-top: 15px;
+}

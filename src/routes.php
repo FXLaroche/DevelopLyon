@@ -19,4 +19,5 @@ return [
     'items/add' => ['ItemController', 'add',],
     'items/delete' => ['ItemController', 'delete',],
     'post/add' => ['PostController', 'add'],
+    'posts/search' => ['PostController', 'search',],
 ];
