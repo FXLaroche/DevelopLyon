@@ -4,27 +4,28 @@
 
 <h1>Se créer un compte</h1>
 
+<div class="container d-flex flex-column align-items-center">
 <form method="post">
-    <div class="sign_in nickname">
+    <div class="form-group">
         <label for="nickname">Identifiant :</label>
-        <input type="text" name="nickname" placeholder="Nom d'utilisateur">
+        <input type="text" name="nickname" class="form-control mb-3" placeholder="Nom d'utilisateur">
     </div>
 
-    <div class="sign_in email">
+    <div class="form-group">
         <label for="email">Email :</label>
-        <input type="email" name="email" placeholder="exemple@exemple.fr">
+        <input type="email" name="email" class="form-control mb-3" placeholder="exemple@exemple.fr">
     </div>
 
-    <div class="sign_in password">
+    <div class="form-group">
         <label for="password">Mot de passe :</label>
-        <input type="password" name="password" placeholder="Mot de passe">
+        <input type="password" name="password" class="form-control mb-3" placeholder="Mot de passe">
     </div>
-    <div class="sign_in">
-        <input type="submit" value="S'inscrire" class="input_button">
+    <div class="container d-flex flex-column align-items-center">
+    <input type="submit" value="S'inscrire" class="btn btn-primary mb-2">
     </div>
 </form>
-
-<a href="/users">Retourner sur l'index</a>
+<a href="/users" class="btn btn-primary mb-2">Retourner sur l'index</a>
+</div>
 
 
 {% endblock %}
