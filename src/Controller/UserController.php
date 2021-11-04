@@ -71,17 +71,19 @@ class UserController extends AbstractController
 
     public function connect($user)
     {
-        $userManager = new UserManager();
-        $connexion = $userManager->login($user);
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $user = array_map('trim', $_POST);
-            if (isset($user['email']) && $user['password']) {
-                if ($connexion == 1) {
-                    return $this->twig->render('User/index.html.twig', [
-                        'user' => $user,
-                    ]);
+            $login = array_map('trim', $_POST);
+            if (isset($login['email']) && $login['password']) {
+                if (password_verify($user['password'], $login['password'])) {
+                    $userManager = new UserManager();
+                    $userManager->login($login);
+                    header('Location: /users');
+                } else {
+                    echo "Le mot de passe n'est pas le bon";
                 }
             }
+            return $this->twig->render('User/login.html.twig');
         }
     }
 }
