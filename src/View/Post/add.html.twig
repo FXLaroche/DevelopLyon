@@ -1,0 +1,15 @@
+{% extends "layout.html.twig" %}
+{% block title %}
+	{{parent()}}Create post
+{% endblock %}
+{% block content %}
+
+	{% include "Post/_form.html.twig" %}
+
+	{% for error in errors %}
+
+		<p>{{error}}</p>
+
+	{% endfor %}
+
+{% endblock %}
