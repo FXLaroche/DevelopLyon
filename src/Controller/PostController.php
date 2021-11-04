@@ -3,6 +3,9 @@
 namespace App\Controller;
 
 use App\Model\PostManager;
+use App\Model\SearchManager;
+
+use function Amp\Internal\getCurrentTime;
 
 class PostController extends AbstractController
 {
@@ -23,8 +26,34 @@ class PostController extends AbstractController
             // if validation is ok, insert and redirection
             $postManager = new PostManager();
             $results = $postManager->search($searchInput['maRecherche']);
-
-            return $this->twig->render('Post/search.html.twig', ['results' => $results]);
+            // traitement of search
+            $searchManager = new SearchManager();
+            $searchs = $searchManager->selectAll();
+            // rechercher si le mot cle est dans la table search
+            $key = false;
+            foreach ($searchs as $searchtab) {
+                if (array_search($searchInput['maRecherche'], $searchtab)){
+                    $key = true;
+                    break;
+                }    
+            }
+            if ($key) {
+                // si oui alors mise à jour des données date et nb_searched
+                $updateSearch['id'] = $searchtab['id'];
+                $updateSearch['date_last'] = date("Y-m-d H:i:s");
+                $updateSearch['nb_searched'] = $searchtab['nb_searched'] + 1;
+                $search = new SearchManager();
+                $id = $search->update($updateSearch);
+            } else {
+                // si non alors création d'un nouvel enregistrement dans la table search
+                $newSearch['word'] = $searchInput['maRecherche'];
+                $newSearch['date_last'] = date("Y-m-d H:i:s");
+                $newSearch['nb_searched'] = 1;
+                $search = new SearchManager();
+                $id = $search->insert($newSearch);
+            }
+            
+            return $this->twigRender('Post/search.html.twig', ['results' => $results]);
         }
     }
 }

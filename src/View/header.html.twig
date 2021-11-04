@@ -16,7 +16,12 @@
 
 			<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" action="/posts/search" method='POST'>
 				<div>
-					<input type="search" id="maRecherche" name="maRecherche" placeholder="Rechercher un post…" aria-label="Rechercher parmi le contenu du site">
+					<input type="search" id="maRecherche" name="maRecherche" placeholder="Rechercher un post…" aria-label="Rechercher parmi le contenu du site" onKeyUp="check(this)" onChange="check(this)">
+					<datalist id="maRecherche">
+						{% for search in searchs %}
+							<option value="{{ search.word }}">
+						{% endfor %}
+					</datalist>
 					<button>Rechercher</button>
 				</div>
 			</form>
