@@ -81,7 +81,7 @@ class PostController extends AbstractController
                     $updateSearch = [];
                     $updateSearch['id'] = $searchtab['id'];
                     $updateSearch['date_last'] = date("Y-m-d H:i:s");
-                    $updateSearch['nb_searched'] = $searchtab['nb_searched'] + 1;                    
+                    $updateSearch['nb_searched'] = $searchtab['nb_searched'] + 1;
                     $id = $search->update($updateSearch);
                     if (!$id) {
                         $error = "Problème technique lors de l'update search";
