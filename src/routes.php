@@ -9,10 +9,10 @@
 return [
     '' => ['HomeController', 'index',],
     'user/add' => ['UserController', 'add',],
-    'user/login' => ['UserController', 'login',],
     'user/show' => ['UserController', 'show', ['id']],
     'user/edit' => ['UserController', 'edit', ['id']],
     'user/delete' => ['UserController', 'delete',],
+    'user/login' => ['UserController','login',],
     'users' => ['UserController', 'index'],
     'items' => ['ItemController', 'index',],
     'items/edit' => ['ItemController', 'edit', ['id']],
