@@ -9,7 +9,6 @@ use Twig\Loader\FilesystemLoader;
 abstract class AbstractController
 {
     protected Environment $twig;
-
     /**
      *  Initializes this class.
      */

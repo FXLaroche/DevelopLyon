@@ -86,11 +86,24 @@ class UserController extends AbstractController
                 foreach ($loginFromDataBase as $key => $value) {
                     $_SESSION[$key] = $value;
                 }
+                $this->twig->addGlobal('nickname', $_SESSION['nickname']);
+                $this->twig->addGlobal('connectionStatus', "Se déconnecter");
+                $this->twig->addGlobal('connectionLink', "logout");
+
                 header("Location:/");
             }
             $errors[]  = "Email or password invalid!";
         }
 
         return $this->twig->render('User/login.html.twig', ['errors' => $errors]);
+    }
+
+    public function logout()
+    {
+        session_destroy();
+        $this->twig->addGlobal('nickname', '');
+        $this->twig->addGlobal('connectionStatus', "Se Connecter");
+        $this->twig->addGlobal('connectionLink', "login");
+        header("Location:/");
     }
 }

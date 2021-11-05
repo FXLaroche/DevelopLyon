@@ -37,7 +37,7 @@ class PostController extends AbstractController
                 $error[] = "Alas! you have too many keywords!";
             }
 
-            if ($newPost['user_id'] != $_SESSION['user_id']) {
+            if ($newPost['user_id'] != $_SESSION['id']) {
                 $error[] = 'Who do you think you are?!';
             }
 
