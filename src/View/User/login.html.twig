@@ -1,0 +1,28 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+<h1>Se connecter</h1>
+
+<form method="post">
+
+    <div class="sign_in email">
+        <label for="email">Email :</label>
+        <input type="email" name="email" placeholder="exemple@exemple.fr">
+    </div>
+
+    <div class="sign_in password">
+        <label for="password">Mot de passe :</label>
+        <input type="password" name="password" placeholder="Mot de passe">
+    </div>
+    <div class="sign_in">
+        <input type="submit" value="Se connecter" class="input_button">
+    </div>
+</form>
+
+<a href="/users">Mot de passe oublié ?</a>
+
+<a href="/users">Retourner sur l'index</a>
+
+
+{% endblock %}

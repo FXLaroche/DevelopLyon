@@ -22,8 +22,8 @@ class UserController extends AbstractController
                 return $errors;
             } else {
                 $userManager = new UserManager();
-                $userManager->insert($user);
-                header('Location:/users');
+                $userManager->registerUser($user);
+                header('Location: /user/login');
             }
         }
 

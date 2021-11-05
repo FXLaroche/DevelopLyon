@@ -12,16 +12,12 @@
             <p>Aucun utilisateur</p>
         {% endfor %}
         </div>
-    <section class="section_user_button">
+    <section class="container d-flex flex-column align-items-center">
         <form action="/user/delete" method="POST">
             <input type="hidden" name="id" value="{{ user.id }}">
-            <button>Delete</button>
+            <button class="btn btn-primary mb-2">Delete</button>
         </form>
-        <div class="user_button">
-            <a href="/user/add">Ajouter</a>
-        </div>
-        <div class="user_button">
-            <a href="/user/add">Supprimer l'utilisateur</a>
-        </div>
+        <a href="/user/add" class="btn btn-primary mb-2">Ajouter</a>
+        <a href="/user/add" class="btn btn-primary mb-2">Supprimer l'utilisateur</a>
     </section>
 {% endblock %}
