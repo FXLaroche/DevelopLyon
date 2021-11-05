@@ -73,6 +73,7 @@ class PostController extends AbstractController
             $searchs = $searchManager->selectAll();
             // rechercher si le mot cle est dans la table search
             $key = false;
+            $search = new SearchManager();
             foreach ($searchs as $searchtab) {
                 if (array_search($searchInput['maRecherche'], $searchtab)) {
                     $key = true;
@@ -80,8 +81,7 @@ class PostController extends AbstractController
                     $updateSearch = [];
                     $updateSearch['id'] = $searchtab['id'];
                     $updateSearch['date_last'] = date("Y-m-d H:i:s");
-                    $updateSearch['nb_searched'] = $searchtab['nb_searched'] + 1;
-                    $search = new SearchManager();
+                    $updateSearch['nb_searched'] = $searchtab['nb_searched'] + 1;                    
                     $id = $search->update($updateSearch);
                     if (!$id) {
                         $error = "Problème technique lors de l'update search";
@@ -95,7 +95,6 @@ class PostController extends AbstractController
                 $newSearch['word'] = $searchInput['maRecherche'];
                 $newSearch['date_last'] = date("Y-m-d H:i:s");
                 $newSearch['nb_searched'] = 1;
-                $search = new SearchManager();
                 $id = $search->insert($newSearch);
                 if (!$id) {
                     $error = "Problème technique lors de l'insert search";
