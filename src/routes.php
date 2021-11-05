@@ -15,5 +15,5 @@ return [
     'items/delete' => ['ItemController', 'delete',],
     'Message/add' => ['MessageController', 'add',],
     'posts/show' => ['PostController', 'show', ['id']],
-    'posts' => ['PostController', 'index',],
+    
 ];

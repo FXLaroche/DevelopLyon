@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Model\ItemManager;
+use App\Model\MessageManager;
 
-class MessageController extends AbstractController
+class MessageController extends ItemController
 {
     public function add(): string
     {
