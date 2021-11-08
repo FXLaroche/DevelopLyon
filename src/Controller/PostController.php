@@ -5,8 +5,6 @@ namespace App\Controller;
 use App\Model\PostManager;
 use App\Model\SearchManager;
 
-use function Amp\Internal\getCurrentTime;
-
 class PostController extends AbstractController
 {
     private PostManager $postManager;
