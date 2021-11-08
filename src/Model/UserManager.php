@@ -8,8 +8,8 @@ class UserManager extends AbstractManager
 
     public function registerUser(array $user): int
     {
-        $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE . " (nickname, email, password) 
-        VALUES (:nickname, :email, :password)");
+        $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE . " (nickname, email, password, role) 
+        VALUES (:nickname, :email, :password, 'utilisateur')");
         $statement->bindValue(':nickname', $user['nickname'], \PDO::PARAM_STR);
         $statement->bindValue(':email', $user['email'], \PDO::PARAM_STR);
         $statement->bindValue(':password', password_hash($user['password'], PASSWORD_BCRYPT), \PDO::PARAM_STR);

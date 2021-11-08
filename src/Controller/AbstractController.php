@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Model\SearchManager;
 use Twig\Environment;
 use Twig\Extension\DebugExtension;
 use Twig\Loader\FilesystemLoader;
@@ -24,5 +25,13 @@ abstract class AbstractController
             ]
         );
         $this->twig->addExtension(new DebugExtension());
+    }
+
+    public function twigRender(string $template, array $params): string
+    {
+        $searchManager = new SearchManager();
+        $searchs = $searchManager->selectAll();
+        $params['searchs'] = $searchs;
+        return $this->twig->render($template, $params);
     }
 }

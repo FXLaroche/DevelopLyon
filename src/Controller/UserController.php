@@ -8,6 +8,7 @@ class UserController extends AbstractController
 {
     public function add(): string
     {
+        $user = "";
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user = array_map('trim', $_POST);
 
@@ -27,7 +28,7 @@ class UserController extends AbstractController
             }
         }
 
-        return $this->twig->render('User/add.html.twig');
+        return $this->twigRender('User/add.html.twig', ['user' => $user]);
     }
 
     public function index(): string
@@ -40,7 +41,7 @@ class UserController extends AbstractController
             header('Location:/users');
         }
 
-        return $this->twig->render('User/index.html.twig', ['users' => $users]);
+        return $this->twigRender('User/index.html.twig', ['users' => $users]);
     }
 
     public function show(int $id): string
@@ -48,7 +49,7 @@ class UserController extends AbstractController
         $userManager = new UserManager();
         $user = $userManager->selectOneById($id);
 
-        return $this->twig->render('User/show.html.twig', ['user' => $user]);
+        return $this->twigRender('User/show.html.twig', ['user' => $user]);
     }
 
     public function edit(int $id): string
@@ -60,7 +61,7 @@ class UserController extends AbstractController
             $userManager->update($user);
             header('Location: /user/show?id=' . $id);
         }
-        return $this->twig->render('User/edit.html.twig', [
+        return $this->twigRender('User/edit.html.twig', [
             'user' => $user,
         ]);
     }
