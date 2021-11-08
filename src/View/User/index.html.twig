@@ -3,20 +3,20 @@
 {% block content %}
     <h1>Liste des utilisateurs</h1>
         <div class="user_list">
+        <form action="" method="post">
         {% for user in users %}
         <div class="user">
-        <input type="checkbox" name="user" value ="{{user.id}}">
+            <input type="checkbox" name="suppr[]" value ="{{user.id}}">
             <a href="/user/show?id={{ user.id }}">{{ user.nickname }}</a>
         </div>
         {% else %}
             <p>Aucun utilisateur</p>
         {% endfor %}
-        </div>
-    <section class="container d-flex flex-column align-items-center">
-        <form action="/user/delete" method="POST">
-            <input type="hidden" name="id" value="{{ user.id }}">
-            <button class="btn btn-primary mb-2">Delete</button>
+        <button class="btn btn-primary mb-2">Delete</button>
         </form>
+        </div>
+        
+    <section class="container d-flex flex-column align-items-center">
         <a href="/user/add" class="btn btn-primary mb-2">Ajouter</a>
         <a href="/user/add" class="btn btn-primary mb-2">Supprimer l'utilisateur</a>
     </section>

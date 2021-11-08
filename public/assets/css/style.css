@@ -13,9 +13,18 @@ header {
     width: 80%;
     border : 3px solid lightgrey;
 }
+.user a {
+    text-decoration: none;
+    color: black;
+}
 
 .user_list {
     display: flex;
     align-items: center;
     flex-direction: column;
+}
+
+.btn-primary {
+    background-color : #ACAAF4;
+    border-color: #ACAAF4;
 }

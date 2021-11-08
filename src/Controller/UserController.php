@@ -23,7 +23,7 @@ class UserController extends AbstractController
             } else {
                 $userManager = new UserManager();
                 $userManager->registerUser($user);
-                header('Location: /user/login');
+                header('Location: /users');
             }
         }
 
@@ -34,6 +34,11 @@ class UserController extends AbstractController
     {
         $userManager = new UserManager();
         $users = $userManager->selectAll('nickname');
+        if (isset($_POST['suppr'])) {
+            $ids = implode(",", $_POST["suppr"]);
+            $userManager->deleteAll($ids);
+            header('Location:/users');
+        }
 
         return $this->twig->render('User/index.html.twig', ['users' => $users]);
     }

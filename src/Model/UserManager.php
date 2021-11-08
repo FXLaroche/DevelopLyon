@@ -28,4 +28,8 @@ class UserManager extends AbstractManager
 
         return $statement->execute();
     }
+    public function deleteAll($ids): void
+    {
+        $this->pdo->query("DELETE FROM user WHERE id IN ($ids);");
+    }
 }
