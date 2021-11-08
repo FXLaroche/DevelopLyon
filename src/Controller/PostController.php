@@ -8,17 +8,14 @@ class PostController extends AbstractController
 {
 
     private PostManager $postManager;
-    
     public function __construct()
     {
         parent::__construct();
         $this->postManager = new PostManager();
     }
-    
     public function show(int $id): string
     {
-        $postManager = new PostManager();
-        $post = $postManager->selectOneById($id);
+        $post = $this->postManager->selectOneById($id);
 
         return $this->twig->render('Post/show.html.twig', ['post' => $post]);
     }
