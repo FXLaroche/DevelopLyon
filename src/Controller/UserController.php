@@ -30,7 +30,7 @@ class UserController extends AbstractController
             }
         }
 
-        return $this->twig->render('User/add.html.twig', ['errors' => $errors]);
+        return $this->twigRender('User/add.html.twig', ['errors' => $errors]);
     }
 
     public function index(): string
@@ -38,7 +38,7 @@ class UserController extends AbstractController
         $userManager = new UserManager();
         $users = $userManager->selectAll('nickname');
 
-        return $this->twig->render('User/index.html.twig', ['users' => $users]);
+        return $this->twigRender('User/index.html.twig', ['users' => $users]);
     }
 
     public function show(int $id): string
@@ -46,7 +46,7 @@ class UserController extends AbstractController
         $userManager = new UserManager();
         $user = $userManager->selectOneById($id);
 
-        return $this->twig->render('User/show.html.twig', ['user' => $user]);
+        return $this->twigRender('User/show.html.twig', ['user' => $user]);
     }
 
     public function edit(int $id): string
@@ -58,7 +58,7 @@ class UserController extends AbstractController
             $userManager->update($user);
             header('Location: /user/show?id=' . $id);
         }
-        return $this->twig->render('User/edit.html.twig', [
+        return $this->twigRender('User/edit.html.twig', [
             'user' => $user,
         ]);
     }
@@ -101,7 +101,7 @@ class UserController extends AbstractController
             $errors[]  = "Email or password invalid!";
         }
 
-        return $this->twig->render('User/login.html.twig', ['errors' => $errors]);
+        return $this->twigRender('User/login.html.twig', ['errors' => $errors]);
     }
 
     public function logout()

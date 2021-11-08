@@ -46,7 +46,7 @@ class PostController extends AbstractController
                 header('Location:/post/show?id=' . $postId);
             }
         }
-        return $this->twig->render('Post/add.html.twig', ['errors' => $error]);
+        return $this->twigRender('Post/add.html.twig', ['errors' => $error]);
     }
     /**
      * List result search
@@ -60,7 +60,7 @@ class PostController extends AbstractController
         // TODO validations (length, format...)
         if (empty($searchInput)) {
             $error = "veuillez saisir un critère de recherche";
-            return $this->twig->render('Post/search.html.twig', ['error' => $error]);
+            return $this->twigRender('Post/search.html.twig', ['error' => $error]);
         } else {
             // if validation is ok, insert and redirection
             $postManager = new PostManager();

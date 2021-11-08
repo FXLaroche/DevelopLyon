@@ -31,6 +31,15 @@ abstract class AbstractController
         $searchManager = new SearchManager();
         $searchs = $searchManager->selectAll();
         $params['searchs'] = $searchs;
+        if (isset($_SESSION['nickname'])) {
+            $params['nickname'] = $_SESSION['nickname'];
+            $params['connectionOption'] = "Se déconnecter";
+            $params['connectionLink']  = "logout";
+        } else {
+            $params['nickname'] = "";
+            $params['connectionOption'] = "Se connecter";
+            $params['connectionLink']  = "login";
+        }
         return $this->twig->render($template, $params);
     }
 }
