@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Model\PostManager;
+use App\Model\SearchManager;
 
 class PostController extends AbstractController
 {
@@ -71,8 +72,39 @@ class PostController extends AbstractController
             // if validation is ok, insert and redirection
             $postManager = new PostManager();
             $results = $postManager->search($searchInput['maRecherche']);
+            // traitement of search
+            $searchManager = new SearchManager();
+            $searchs = $searchManager->selectAll();
+            // rechercher si le mot cle est dans la table search
+            $key = false;
+            foreach ($searchs as $searchtab) {
+                if (array_search($searchInput['maRecherche'], $searchtab)) {
+                    $key = true;
+                    // si oui alors mise à jour des données date et nb_searched
+                    $updateSearch = [];
+                    $updateSearch['id'] = $searchtab['id'];
+                    $updateSearch['date_last'] = date("Y-m-d H:i:s");
+                    $updateSearch['nb_searched'] = $searchtab['nb_searched'] + 1;
+                    $id = $searchManager->update($updateSearch);
+                    if (!$id) {
+                        $error = "Problème technique lors de l'update search";
+                    }
+                    break;
+                }
+            }
+            if (!$key) {
+                // si non alors création d'un nouvel enregistrement dans la table search
+                $newSearch = [];
+                $newSearch['word'] = $searchInput['maRecherche'];
+                $newSearch['date_last'] = date("Y-m-d H:i:s");
+                $newSearch['nb_searched'] = 1;
+                $id = $searchManager->insert($newSearch);
+                if (!$id) {
+                    $error = "Problème technique lors de l'insert search";
+                }
+            }
 
-            return $this->twig->render('Post/search.html.twig', ['results' => $results]);
+            return $this->twigRender('Post/search.html.twig', ['results' => $results]);
         }
     }
 }
