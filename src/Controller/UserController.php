@@ -8,26 +8,29 @@ class UserController extends AbstractController
 {
     public function add(): string
     {
+        $errors = "";
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user = array_map('trim', $_POST);
 
+
             if (empty($user['nickname'])) {
                 $errors = 'The nickname is required';
-                return $errors;
             } elseif (empty($user['email'])) {
                 $errors = 'The e-mail is required';
-                return $errors;
             } elseif (empty($user['password'])) {
                 $errors = 'The password is required';
-                return $errors;
             } else {
                 $userManager = new UserManager();
-                $userManager->registerUser($user);
-                header('Location: /user/login');
+                if ($userManager->registerUser($user) === 0) {
+                    $errors = 'The email is already in use!!';
+                } else {
+                    header('Location: /user/login');
+                }
             }
         }
 
-        return $this->twig->render('User/add.html.twig');
+        return $this->twig->render('User/add.html.twig', ['errors' => $errors]);
     }
 
     public function index(): string
@@ -75,20 +78,23 @@ class UserController extends AbstractController
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $loginData = array_map('trim', $_POST);
-            $loginData = array_map('htmlentities', $loginData);
             $email = $loginData['email'];
             $password = $loginData['password'];
 
             $userManager = new UserManager();
-            $loginFromDataBase = $userManager->getLoginData($email);
+            try {
+                $loginFromDataBase = $userManager->getLoginData($email);
+            } catch (\Exception $e) {
+                echo $e->getMessage();
+            }
 
-            if ($password === $loginFromDataBase['password']) {
+            if (isset($loginFromDataBase) && password_verify($password, $loginFromDataBase['password'])) {
                 foreach ($loginFromDataBase as $key => $value) {
                     $_SESSION[$key] = $value;
                 }
-                $this->twig->addGlobal('nickname', $_SESSION['nickname']);
-                $this->twig->addGlobal('connectionStatus', "Se déconnecter");
-                $this->twig->addGlobal('connectionLink', "logout");
+                //$this->twig->addGlobal('nickname', $_SESSION['nickname']);
+                //$this->twig->addGlobal('connectionStatus', "Se déconnecter");
+                //$this->twig->addGlobal('connectionLink', "logout");
 
                 header("Location:/");
             }
@@ -101,9 +107,9 @@ class UserController extends AbstractController
     public function logout()
     {
         session_destroy();
-        $this->twig->addGlobal('nickname', '');
-        $this->twig->addGlobal('connectionStatus', "Se Connecter");
-        $this->twig->addGlobal('connectionLink', "login");
+        //$this->twig->addGlobal('nickname', '');
+        //$this->twig->addGlobal('connectionStatus', "Se Connecter");
+        //$this->twig->addGlobal('connectionLink', "login");
         header("Location:/");
     }
 }

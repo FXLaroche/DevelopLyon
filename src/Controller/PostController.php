@@ -20,7 +20,6 @@ class PostController extends AbstractController
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $newPost = array_map('trim', $_POST);
-            $newPost = array_map('htmlentities', $newPost);
 
             if (strlen($newPost['subject']) > 255) {
                 $error[] = "I'm afraid your title is too long!";
