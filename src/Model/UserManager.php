@@ -2,6 +2,8 @@
 
 namespace App\Model;
 
+use Exception;
+
 class UserManager extends AbstractManager
 {
     public const TABLE = 'user';
@@ -13,7 +15,12 @@ class UserManager extends AbstractManager
         $statement->bindValue(':nickname', $user['nickname'], \PDO::PARAM_STR);
         $statement->bindValue(':email', $user['email'], \PDO::PARAM_STR);
         $statement->bindValue(':password', password_hash($user['password'], PASSWORD_BCRYPT), \PDO::PARAM_STR);
-        $statement->execute();
+        try {
+            $statement->execute();
+        } catch (\Exception $e) {
+            return 0;
+        }
+
         return (int)$this->pdo->lastInsertId();
     }
 
@@ -31,5 +38,22 @@ class UserManager extends AbstractManager
     public function deleteAll($ids): void
     {
         $this->pdo->query("DELETE FROM user WHERE id IN ($ids);");
+
     }
+
+    public function getLoginData(string $email): array
+    {
+        $query = "SELECT * FROM " . self::TABLE . " WHERE email=:email";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue('email', $email, \PDO::PARAM_STR);
+        $statement->execute();
+        $result = $statement->fetch();
+
+        if (!$result) {
+            throw new Exception("Unknown email: $email", 1);
+        }
+
+        return $result;
+    }
+
 }

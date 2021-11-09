@@ -21,4 +21,5 @@ return [
     'items/delete' => ['ItemController', 'delete',],
     'post/add' => ['PostController', 'add', ['theme']],
     'posts/search' => ['PostController', 'search',],
+    'user/logout' => ['UserController', 'logout'],
 ];

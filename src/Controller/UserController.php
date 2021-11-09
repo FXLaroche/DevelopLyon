@@ -8,27 +8,29 @@ class UserController extends AbstractController
 {
     public function add(): string
     {
-        $user = "";
+        $errors = "";
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user = array_map('trim', $_POST);
 
+
             if (empty($user['nickname'])) {
                 $errors = 'The nickname is required';
-                return $errors;
             } elseif (empty($user['email'])) {
                 $errors = 'The e-mail is required';
-                return $errors;
             } elseif (empty($user['password'])) {
                 $errors = 'The password is required';
-                return $errors;
             } else {
                 $userManager = new UserManager();
-                $userManager->registerUser($user);
-                header('Location: /users');
+                if ($userManager->registerUser($user) === 0) {
+                    $errors = 'The email is already in use!!';
+                } else {
+                    header('Location: /user/login');
+                }
             }
         }
 
-        return $this->twigRender('User/add.html.twig', ['user' => $user]);
+        return $this->twigRender('User/add.html.twig', ['errors' => $errors]);
     }
 
     public function index(): string
@@ -73,5 +75,39 @@ class UserController extends AbstractController
             $userManager->delete((int)$id);
             header('Location:/users');
         }
+    }
+
+    public function login()
+    {
+        $errors  = [];
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $loginData = array_map('trim', $_POST);
+            $email = $loginData['email'];
+            $password = $loginData['password'];
+
+            $userManager = new UserManager();
+            try {
+                $loginFromDataBase = $userManager->getLoginData($email);
+            } catch (\Exception $e) {
+                echo $e->getMessage();
+            }
+
+            if (isset($loginFromDataBase) && password_verify($password, $loginFromDataBase['password'])) {
+                foreach ($loginFromDataBase as $key => $value) {
+                    $_SESSION[$key] = $value;
+                }
+                header("Location:/");
+            }
+            $errors[]  = "Email or password invalid!";
+        }
+
+        return $this->twigRender('User/login.html.twig', ['errors' => $errors]);
+    }
+
+    public function logout()
+    {
+        session_destroy();
+        header("Location:/");
     }
 }
