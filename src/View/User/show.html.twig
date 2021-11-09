@@ -1,30 +1,33 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}{{parent()}}Profil de {{user.nickname}}{% endblock %}
+{% block title %}
+    {{parent()}}Profil de {{user.nickname}}
+{% endblock %}
 
 {% block content %}
     <h1 class="display-4">{{ user.nickname }}</h1>
     <div class="container">
-        <div class="d-flex flex-row align-items-center justify-content-start mb-3">
+        <div class="d-flex align-items-center justify-content-center mb-3">
             <div class="profile_image" style="background-image: url('/assets/images/{{user.picture_link}}')"></div>
         </div>
-        <div class="d-flex flex-row align-items-center">
+        <div class="d-flex flex-row align-items-center justify-content-center">
             <p><strong>Utilisateur n°</strong> {{ user.id }}</p>
         </div>
-        <div class="d-flex flex-row align-items-center">
+        <div class="d-flex flex-row align-items-center justify-content-center">
             <p><strong>Nom d'utilisateur </strong>: {{ user.nickname }}</p>
         </div>
-        <div class="d-flex flex-row align-items-center">
+        <div class="d-flex flex-row align-items-center justify-content-center">
             <p><strong>E-mail </strong>: {{ user.email }}</p>
         </div>
-        <div class="d-flex flex-row align-items-center">
+        <div class="d-flex flex-row align-items-center justify-content-center">
             <p><strong>Rôle </strong>: {{ user.role }}</p>
         </div>
-        <a href="/user/edit?id={{ user.id }}" class="btn btn-primary mb-2">Edit</a>
-        <form action="/user/delete" method="POST">
-            <input type="hidden" name="id" value="{{ user.id }}">
-            <button class="btn btn-primary mb-2">Delete</button>
-        </form>
-        <a href="/users" class="btn btn-primary mb-2">Back</a>
+        <div class="container d-flex flex-column align-items-center justify-content-center">
+            <a href="/user/edit?id={{ user.id }}" class="btn btn-primary mb-2">Edit</a>
+            <form action="/user/delete" method="POST">
+                <input type="hidden" name="id" value="{{ user.id }}">
+                <button class="btn btn-primary mb-2">Delete</button>
+            </form>
+        </div>
     </div>
 {% endblock %}
