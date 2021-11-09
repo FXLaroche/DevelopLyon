@@ -1,8 +1,13 @@
 {% extends 'layout.html.twig' %}
 
+{% block title %}{{parent()}}Profil de {{user.nickname}}{% endblock %}
+
 {% block content %}
     <h1 class="display-4">{{ user.nickname }}</h1>
     <div class="container">
+        <div class="d-flex flex-row align-items-center justify-content-start mb-3">
+            <div class="profile_image" style="background-image: url('/assets/images/{{user.picture_link}}')"></div>
+        </div>
         <div class="d-flex flex-row align-items-center">
             <p><strong>Utilisateur n°</strong> {{ user.id }}</p>
         </div>
@@ -13,10 +18,7 @@
             <p><strong>E-mail </strong>: {{ user.email }}</p>
         </div>
         <div class="d-flex flex-row align-items-center">
-            <p><strong>Mot de passe </strong>: {{ user.password }}</p>
-        </div>
-        <div class="d-flex flex-row align-items-center">
-            <p><strong>Rôle </strong>: <div>{{ user.role }}</div></p>
+            <p><strong>Rôle </strong>: {{ user.role }}</p>
         </div>
         <a href="/user/edit?id={{ user.id }}" class="btn btn-primary mb-2">Edit</a>
         <form action="/user/delete" method="POST">

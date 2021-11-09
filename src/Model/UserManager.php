@@ -10,8 +10,8 @@ class UserManager extends AbstractManager
 
     public function registerUser(array $user): int
     {
-        $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE . " (nickname, email, password, role) 
-        VALUES (:nickname, :email, :password, 'utilisateur')");
+        $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE . " (nickname, email, password, role, picture_link) 
+        VALUES (:nickname, :email, :password, 'utilisateur', 'login.png')");
         $statement->bindValue(':nickname', $user['nickname'], \PDO::PARAM_STR);
         $statement->bindValue(':email', $user['email'], \PDO::PARAM_STR);
         $statement->bindValue(':password', password_hash($user['password'], PASSWORD_BCRYPT), \PDO::PARAM_STR);
@@ -27,7 +27,7 @@ class UserManager extends AbstractManager
     public function update(array $user): bool
     {
         $statement = $this->pdo->prepare("UPDATE " . self::TABLE . " SET 
-        nickname = :nickname AND password = :password AND email = :email WHERE id=:id");
+        nickname = :nickname , password = :password , email = :email WHERE id=:id");
         $statement->bindValue(':nickname', $user['nickname'], \PDO::PARAM_STR);
         $statement->bindValue(':password', password_hash($user['password'], PASSWORD_BCRYPT), \PDO::PARAM_STR);
         $statement->bindValue(':email', $user['email'], \PDO::PARAM_STR);
@@ -38,7 +38,6 @@ class UserManager extends AbstractManager
     public function deleteAll($ids): void
     {
         $this->pdo->query("DELETE FROM user WHERE id IN ($ids);");
-
     }
 
     public function getLoginData(string $email): array
@@ -55,5 +54,4 @@ class UserManager extends AbstractManager
 
         return $result;
     }
-
 }

@@ -6,37 +6,30 @@
 {% endblock %}
 {% block content %}
 
-	<div>
-		<h1>Connexion à votre compte</h1>
-	</div>
-	<form action="" method="post" class="container d-flex flex-column align-items-center">
 
-		<div class="row justify-content-center">
-			<label for="email">Identifiant :
-			</label>
+	<h1>Connexion à votre compte</h1>
+	<div class="container d-flex flex-column align-items-center">
+	<form action="" method="post">
+
+		<div class="form-group">
+			<label for="email">Identifiant :</label>
+			<input type="email" class="form-control mb-3" name="email" id="email" placeholder="example@example.com" maxlength="255" required>
 		</div>
-		<div class="row justify-content-center">
-			<input type="email" name="email" id="email" placeholder="toto@wild.com" maxlength="255" required>
+		<div class="form-group">
+			<label for="password">Mot de passe :</label>
+			<input type="password" class="form-control mb-3" name="password" id="password" placeholder="Mot de passe" required>
 		</div>
-		<div class="row justify-content-center">
-			<label for="password">Mot de passe :
-			</label>
-		</div>
-		<div class="row justify-content-center">
-			<input type="password" name="password" id="password" placeholder="Mot de passe" required>
-		</div>
-		<div>
+		<div class="container d-flex flex-column align-items-center">
 			<input type="submit" value="Se connecter" class="btn btn-primary mb-2">
 		</div>
 	</form>
-	<h1>
-		<div>Vous n'avez pas de compte ?</div>
-		<div>Inscrivez-vous !</div>
-	</h1>
-	<h1></h1>
+	<h2>Vous n'avez pas de compte ?</h2>
+	<h2>Inscrivez-vous !</h2>
+
 	<a href="/user/add" class="container d-flex flex-column align-items-center">
 		<button class="btn btn-primary mb-2">S'inscrire</button>
 	</a>
+	</div>
 
 
 	{% for error in errors %}

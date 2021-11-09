@@ -1,5 +1,7 @@
 {% extends 'layout.html.twig' %}
 
+{% block title %}{{parent()}}Inscription{% endblock %}
+
 {% block content %}
 
 	<h1>Se créer un compte</h1>
@@ -27,7 +29,6 @@
 				<input type="submit" value="S'inscrire" class="btn btn-primary mb-2">
 			</div>
 		</form>
-		<a href="/users" class="btn btn-primary mb-2">Retourner sur l'index</a>
 	</div>
 
 
