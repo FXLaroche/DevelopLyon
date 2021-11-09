@@ -9,7 +9,7 @@ id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 nickname VARCHAR(63) NOT NULL,
 password VARCHAR(255) NOT NULL,
 picture_link VARCHAR(511),
-email VARCHAR(63),
+email VARCHAR(63) UNIQUE,
 role VARCHAR(16));
  
 CREATE TABLE category(
@@ -41,16 +41,6 @@ theme_id INT NOT NULL,
 FOREIGN KEY (theme_id) REFERENCES theme(id),
 date DATETIME DEFAULT CURRENT_TIMESTAMP,
 message TEXT NOT NULL);
-
-CREATE TABLE keyword(
-id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-keyword VARCHAR(255));
- 
-CREATE TABLE keyword_post(
-keyword_id INT NOT NULL,
-FOREIGN KEY fk_kword_kwordpost (keyword_id) REFERENCES keyword(id),
-post_id INT NOT NULL,
-FOREIGN KEY fk_post_kwordpost (post_id) REFERENCES post(id));
 
 CREATE TABLE notification(
 user_id INT NOT NULL,
