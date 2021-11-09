@@ -1,28 +1,45 @@
 {% extends 'layout.html.twig' %}
 
+{% block stylesheet %}{% endblock %}
+{% block title %}
+	{{parent()}}Login
+{% endblock %}
 {% block content %}
 
-<h1>Se connecter</h1>
+	<div>
+		<h1>Connexion à votre compte</h1>
+	</div>
+	<form action="" method="post" class="container d-flex flex-column align-items-center">
 
-<form method="post">
+		<div class="row justify-content-center">
+			<label for="email">Identifiant :
+			</label>
+		</div>
+		<div class="row justify-content-center">
+			<input type="email" name="email" id="email" placeholder="toto@wild.com" maxlength="255" required>
+		</div>
+		<div class="row justify-content-center">
+			<label for="password">Mot de passe :
+			</label>
+		</div>
+		<div class="row justify-content-center">
+			<input type="password" name="password" id="password" placeholder="Mot de passe" required>
+		</div>
+		<div>
+			<input type="submit" value="Se connecter" class="btn btn-primary mb-2">
+		</div>
+	</form>
+	<h1>
+		<div>Vous n'avez pas de compte ?</div>
+		<div>Inscrivez-vous !</div>
+	</h1>
+	<h1></h1>
+	<a href="/user/add" class="container d-flex flex-column align-items-center">
+		<button class="btn btn-primary mb-2">S'inscrire</button>
+	</a>
 
-    <div class="sign_in email">
-        <label for="email">Email :</label>
-        <input type="email" name="email" placeholder="exemple@exemple.fr">
-    </div>
 
-    <div class="sign_in password">
-        <label for="password">Mot de passe :</label>
-        <input type="password" name="password" placeholder="Mot de passe">
-    </div>
-    <div class="sign_in">
-        <input type="submit" value="Se connecter" class="input_button">
-    </div>
-</form>
-
-<a href="/users">Mot de passe oublié ?</a>
-
-<a href="/users">Retourner sur l'index</a>
-
-
+	{% for error in errors %}
+		{{error}}
+	{% endfor %}
 {% endblock %}

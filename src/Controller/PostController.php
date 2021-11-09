@@ -27,7 +27,6 @@ class PostController extends AbstractController
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $newPost = array_map('trim', $_POST);
-            $newPost = array_map('htmlentities', $newPost);
 
             if (strlen($newPost['subject']) > 255) {
                 $error[] = "I'm afraid your title is too long!";
@@ -44,7 +43,7 @@ class PostController extends AbstractController
                 $error[] = "Alas! you have too many keywords!";
             }
 
-            if ($newPost['user_id'] != $_SESSION['user_id']) {
+            if ($newPost['user_id'] != $_SESSION['id']) {
                 $error[] = 'Who do you think you are?!';
             }
 
@@ -53,7 +52,7 @@ class PostController extends AbstractController
                 header('Location:/post/show?id=' . $postId);
             }
         }
-        return $this->twig->render('Post/add.html.twig', ['errors' => $error]);
+        return $this->twigRender('Post/add.html.twig', ['errors' => $error]);
     }
     /**
      * List result search
@@ -67,7 +66,7 @@ class PostController extends AbstractController
         // TODO validations (length, format...)
         if (empty($searchInput)) {
             $error = "veuillez saisir un critère de recherche";
-            return $this->twig->render('Post/search.html.twig', ['error' => $error]);
+            return $this->twigRender('Post/search.html.twig', ['error' => $error]);
         } else {
             // if validation is ok, insert and redirection
             $postManager = new PostManager();
