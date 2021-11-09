@@ -1,30 +1,43 @@
 {% extends 'layout.html.twig' %}
 
+{% block stylesheet %}{% endblock %}
 {% block title %}
 	{{parent()}}Login
 {% endblock %}
-
 {% block content %}
 
-	<form action="" method="post">
-		<div>
-			<label for="email">Email:
+	<div>
+		<h1>Connexion à votre compte</h1>
+	</div>
+	<form action="" method="post" class="container d-flex flex-column align-items-center">
+
+		<div class="row justify-content-center">
+			<label for="email">Identifiant :
 			</label>
 		</div>
-		<div>
-			<input type="email" name="email" id="email" maxlength="255" required>
+		<div class="row justify-content-center">
+			<input type="email" name="email" id="email" placeholder="toto@wild.com" maxlength="255" required>
 		</div>
-		<div>
-			<label for="password">Password:
+		<div class="row justify-content-center">
+			<label for="password">Mot de passe :
 			</label>
 		</div>
-		<div>
-			<input type="password" name="password" id="password" required>
+		<div class="row justify-content-center">
+			<input type="password" name="password" id="password" placeholder="Mot de passe" required>
 		</div>
 		<div>
-			<input type="submit" value="Send">
+			<input type="submit" value="Se connecter" class="btn btn-primary mb-2">
 		</div>
 	</form>
+	<h1>
+		<div>Vous n'avez pas de compte ?</div>
+		<div>Inscrivez-vous !</div>
+	</h1>
+	<h1></h1>
+	<a href="/user/add" class="container d-flex flex-column align-items-center">
+		<button class="btn btn-primary mb-2">S'inscrire</button>
+	</a>
+
 
 	{% for error in errors %}
 		{{error}}
