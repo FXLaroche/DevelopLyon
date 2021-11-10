@@ -106,4 +106,11 @@ class PostController extends AbstractController
             return $this->twigRender('Post/search.html.twig', ['results' => $results]);
         }
     }
+    public function index(int $id_category): string
+    {
+        $postManager = new PostManager();
+        $posts = $postManager->selectAllById($id_category);
+
+        return $this->twigRender('Post/index.html.twig', ['posts' => $posts]);
+    }
 }

@@ -24,4 +24,5 @@ return [
     'post/add' => ['PostController', 'add', ['theme']],
     'posts/search' => ['PostController', 'search',],
     'user/logout' => ['UserController', 'logout'],
+    'themes/show' => ['PostController', 'index', ['id']],
 ];

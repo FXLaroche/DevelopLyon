@@ -17,7 +17,7 @@ class MessageController extends ItemController
             // if validation is ok, insert and redirection
             $messageManager = new MessageManager();
             $id = $messageManager->insert($message);
-            header('Location:/posts/show?id='.$id);
+            header('Location:/posts/show?id=' . $id);
         }
 
         return $this->twig->render('Message/add.html.twig');
