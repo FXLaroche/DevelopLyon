@@ -61,12 +61,33 @@ class UserController extends AbstractController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user = array_map('trim', $_POST);
             $userManager->update($user);
+
+            $extensions = ['jpg', 'png', 'jpeg', 'gif'];
+            $maxSize = 400000;
+            $tmpName = $_FILES['profile_image']['tmp_name'];
+            $name = $_FILES['profile_image']['name'];
+            $size = $_FILES['profile_image']['size'];
+            $error = $_FILES['profile_image']['error'];
+
+            $tabExtension = explode('.', $name);
+            $extension = strtolower(end($tabExtension));
+
+            if (in_array($extension, $extensions) && $size <= $maxSize && $error == 0) {
+                $uniqueName = uniqid('', true);
+                $file = $uniqueName . "." . $extension;
+                move_uploaded_file($tmpName, 'assets/images/' . $file);
+                $user = $userManager->saveNewImage($file);
+            } else {
+                echo "You can't upload this file";
+            }
+
             header('Location: /user/show?id=' . $id);
         }
         return $this->twigRender('User/edit.html.twig', [
             'user' => $user,
         ]);
     }
+
     public function delete()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

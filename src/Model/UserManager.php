@@ -55,4 +55,11 @@ class UserManager extends AbstractManager
 
         return $result;
     }
+
+    public function saveNewImage($file)
+    {
+        $statement = $this->pdo->prepare("UPDATE " . self::TABLE . " SET picture_link='$file' WHERE id=:id");
+        $statement->bindValue(':id', $_SESSION['id'], \PDO::PARAM_INT);
+        $statement->execute();
+    }
 }
