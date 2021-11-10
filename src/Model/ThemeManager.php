@@ -6,11 +6,14 @@ class ThemeManager extends AbstractManager
 {
     public const TABLE = 'theme';
 
-        /**
+    /**
      * Get all row from database.
      */
-    public function selectAllById(int $idCategory, string $orderBy = '', string $direction = 'ASC'): array
-    {
+    public function selectThemesByCategoryIdWithPostInfos(
+        int $idCategory,
+        string $orderBy = '',
+        string $direction = 'ASC'
+    ): array {
         $query = 'SELECT th.id as id_theme,
         th.name as name_theme,
         ca.name as name_category,

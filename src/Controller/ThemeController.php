@@ -9,10 +9,10 @@ class ThemeController extends AbstractController
     /**
      * List category
      */
-    public function index(int $id): string
+    public function listThemeByCategory(int $id): string
     {
         $themeManager = new ThemeManager();
-        $themes = $themeManager->selectAllById($id);
+        $themes = $themeManager->selectThemesByCategoryIdWithPostInfos($id);
 
         return $this->twigRender('Theme/index.html.twig', ['themes' => $themes]);
     }

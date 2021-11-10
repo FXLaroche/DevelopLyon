@@ -22,5 +22,5 @@ return [
     'post/add' => ['PostController', 'add', ['theme']],
     'posts/search' => ['PostController', 'search',],
     'user/logout' => ['UserController', 'logout'],
-    'themes/index' => ['ThemeController', 'index', ['id']],
+    'themes/index' => ['ThemeController', 'listThemeByCategory', ['id']],
 ];
