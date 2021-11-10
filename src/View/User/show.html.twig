@@ -23,10 +23,10 @@
             <p><strong>Rôle </strong>: {{ user.role }}</p>
         </div>
         <div class="container d-flex flex-column align-items-center justify-content-center">
-            <a href="/user/edit?id={{ user.id }}" class="btn btn-primary mb-2">Edit</a>
+            <a href="/user/edit?id={{ user.id }}" class="btn btn-primary mb-2">Modifier mon profil</a>
             <form action="/user/delete" method="POST">
                 <input type="hidden" name="id" value="{{ user.id }}">
-                <button class="btn btn-primary mb-2">Delete</button>
+                <button class="btn btn-primary mb-2">Supprimer mon profil</button>
             </form>
         </div>
     </div>
