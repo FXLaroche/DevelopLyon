@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Model\PostManager;
+use App\Model\RedirectionManager;
 use App\Model\SearchManager;
+use App\Model\ThemeManager;
 
 class PostController extends AbstractController
 {
@@ -15,12 +17,36 @@ class PostController extends AbstractController
         $this->postManager = new PostManager();
     }
 
+    public function themeIsOk($themeId): bool
+    {
+        if (!isset($themeId)) {
+            return false;
+        }
+
+        $themeManager = new ThemeManager();
+        $themeList = $themeManager->selectAll();
+
+        foreach ($themeList as $theme) {
+            if ($theme['id'] === $themeId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     public function add($themeId): string
     {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET' && !$this->themeIsOk($themeId)) {
+            header("Location:/error");
+            //RedirectionManager::Error404();
+        }
+
         $error = [];
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $newPost = array_map('trim', $_POST);
+            $newPost['user_id'] = $_SESSION['id'];
 
             if (strlen($newPost['subject']) > 255) {
                 $error[] = "I'm afraid your title is too long!";
@@ -37,10 +63,6 @@ class PostController extends AbstractController
                 $error[] = "Alas! you have too many keywords!";
             }
 
-            if ($newPost['user_id'] != $_SESSION['id']) {
-                $error[] = 'Who do you think you are?!';
-            }
-
             if (empty($error)) {
                 $postId = $this->postManager->create($newPost, $themeId);
                 header('Location:/post/show?id=' . $postId);
@@ -48,6 +70,7 @@ class PostController extends AbstractController
         }
         return $this->twigRender('Post/add.html.twig', ['errors' => $error]);
     }
+
     /**
      * List result search
      */
