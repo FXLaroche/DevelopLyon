@@ -30,7 +30,7 @@ class PostManager extends AbstractManager
     public function search(string $search): array
     {
         $search = "%" . $search . "%";
-        $statement = $this->pdo->prepare("SELECT user.picture_link,
+        $statement = $this->pdo->prepare("SELECT post.id, user.picture_link,
          user.nickname,
          post.subject,
          post.date FROM " . self::TABLE . " JOIN user ON post.user_id = user.id
