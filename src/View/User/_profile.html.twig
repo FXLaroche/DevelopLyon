@@ -2,7 +2,7 @@
 <div class="container d-flex flex-row justify-content-around align-items-center mb-3">
 	<div class="profile_image" style="background-image: url('/assets/images/{{user.picture_link}}')"></div>
     <input type="file" name="profile_image">
-	<p class="mb-0">{{ user.picture_link }}</p>
+	<p class="mb-0">The image must be under 400ko. You can only use .png .jpg .jpeg or .gif</p>
 </div>
 <div class="container form-group">
 	<input type="hidden" class="form-control mb-3" value="{{ user.id }}" name="id">

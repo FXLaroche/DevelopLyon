@@ -37,6 +37,9 @@ a {
     width: 100px;
     height: 100px;
     background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: grey;
 }
 .barre {
     background-color: #1A2B3B;
