@@ -1,23 +1,22 @@
 {% extends 'layout.html.twig' %}
 
+{% block title %}
+    {{parent()}}Liste des utilisateurs
+{% endblock %}
+
 {% block content %}
     <h1>Liste des utilisateurs</h1>
-        <div class="user_list">
+    <form action="" method="post">
+        <div class="container d-flex flex-column align-items-center">
         {% for user in users %}
         <div class="user">
-        <input type="checkbox" name="user" value ="{{user.id}}">
+            <input type="checkbox" name="suppr[]" value ="{{user.id}}">
             <a href="/user/show?id={{ user.id }}">{{ user.nickname }}</a>
         </div>
         {% else %}
             <p>Aucun utilisateur</p>
         {% endfor %}
+        <button class="btn btn-primary mb-2">Supprimer les utilisateurs</button>
         </div>
-    <section class="container d-flex flex-column align-items-center">
-        <form action="/user/delete" method="POST">
-            <input type="hidden" name="id" value="{{ user.id }}">
-            <button class="btn btn-primary mb-2">Delete</button>
-        </form>
-        <a href="/user/add" class="btn btn-primary mb-2">Ajouter</a>
-        <a href="/user/add" class="btn btn-primary mb-2">Supprimer l'utilisateur</a>
-    </section>
+    </form>
 {% endblock %}

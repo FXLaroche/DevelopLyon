@@ -62,3 +62,5 @@ SELECT * FROM post;
 DELETE FROM post WHERE id=1;
 SELECT * FROM category;
 INSERT INTO theme(category_id, name) VALUES(1, "POO for kings");
+
+ALTER TABLE user MODIFY email VARCHAR(63) UNIQUE;
