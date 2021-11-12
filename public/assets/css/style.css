@@ -1,11 +1,23 @@
 h1 {
     text-align: center;
     padding: 20px;
+    font-family: 'Sansita Swashed', cursive;
+}
+h2 {
+    text-align: center;
+    padding: 10px;
+    font-family: 'Sansita Swashed', cursive;
+}
+body {
+    font-family: 'Varela Round', sans-serif;
 }
 header {
     background-color: #ACAAF4;
 }
-
+a {
+    font-family: 'Varela Round', sans-serif;
+    text-decoration: none;
+}
 .user {
     background-color: white;
     padding: 10px;
@@ -13,11 +25,30 @@ header {
     width: 80%;
     border : 3px solid lightgrey;
 }
-
-.user_list {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+.user a {
+    color: black;
+}
+.btn-primary {
+    background-color: #ACAAF4;
+    border-color: #ACAAF4;
+}
+.profile_image {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: grey;
+}
+.barre {
+    background-color: #1A2B3B;
+    width: 20vw;
+    height: 100vh;
+}
+.titre_barre {
+    color: white;
+    text-decoration: underline;
 }
 
 .img-category {
