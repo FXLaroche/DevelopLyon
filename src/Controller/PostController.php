@@ -39,7 +39,6 @@ class PostController extends AbstractController
     {
         if ($_SERVER['REQUEST_METHOD'] === 'GET' && !$this->themeIsOk($themeId)) {
             header("Location:/error");
-            //RedirectionManager::Error404();
         }
 
         $error = [];
