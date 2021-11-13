@@ -46,7 +46,7 @@ class PostManager extends AbstractManager
      */
     public function selectAllById(int $idCategory, string $orderBy = '', string $direction = 'ASC'): array
     {
-        $query = 'SELECT * FROM ' . static::TABLE .' WHERE theme_id = :idcategory';
+        $query = 'SELECT * FROM ' . static::TABLE . ' WHERE theme_id = :idcategory';
         if ($orderBy) {
             $query .= ' ORDER BY ' . $orderBy . ' ' . $direction;
         }

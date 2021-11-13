@@ -1,13 +1,14 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <h1>Liste des posts</h1>
-    <ul>
+<h1>Liste des posts</h1>
+<main class="container">
+    <div class="row">
         {% for post in posts %}
-            <li><a href="/posts/show?id={{ post.id }}">{{ post.id }}. {{ post.subject }}</a></li>
+            <table class="table table-secondary table-striped"><thead><th><a href="/posts/show?id={{ post.id }}">{{ post.id }}. {{ post.subject }}</a></th></thead></table>
         {% else %}
-            <li>Nothing to display</li>
+            <div class="row">Nothing to display</div>
         {% endfor %}
-    </ul>
-    <a href="/posts/add">Ajouter</a>
+    </div>
+    <a class="btn btn-outline-secondary" href="/posts/add">Ajouter un nouveau post</a>
 {% endblock %}
