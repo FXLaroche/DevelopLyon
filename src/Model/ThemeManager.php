@@ -33,4 +33,15 @@ class ThemeManager extends AbstractManager
 
         return $statement->fetchAll();
     }
+
+    public function selectThemesBycategoryId(int $categoryId)
+    {
+        $query = "";
+
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue(':categoryId', $categoryId, \PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetchAll();
+    }
 }

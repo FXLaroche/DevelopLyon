@@ -40,4 +40,19 @@ class PostManager extends AbstractManager
         $statement->execute();
         return $statement->fetchAll();
     }
+
+    public function selectPostTreeData(int $postId)
+    {
+        $query = "SELECT t.name theme_name, t.id theme_id, c.name cat_name, c.id cat_id 
+        FROM theme t 
+        JOIN post p ON p.theme_id=t.id 
+        JOIN category c ON c.id=t.category_id 
+        WHERE p.id=:postId;";
+
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue(':postId', $postId, \PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetch();
+    }
 }

@@ -1,0 +1,12 @@
+<li class="nav-item dropdown">
+	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		{{sectionName}}
+	</a>
+	<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+	{% for id, value in table %}
+		<li>
+			<a class="dropdown-item" href="{% block url %}{% endblock %}/{{id}}">{{value}}</a>
+		</li>
+		{% endfor %}
+	</ul>
+</li>
