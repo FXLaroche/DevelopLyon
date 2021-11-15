@@ -21,7 +21,7 @@ class PostController extends AbstractController
     public function show(int $id): string
     {
         $post = $this->postManager->selectOnePostById($id);
-        $messageManager = new MessageManager;
+        $messageManager = new MessageManager();
         $messages = $messageManager->selectAllMessageForOnePost($id);
 
         return $this->twigRender('Post/show.html.twig', ['post' => $post, 'messages' => $messages]);
