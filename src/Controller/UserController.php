@@ -35,6 +35,19 @@ class UserController extends AbstractController
 
     public function index(): string
     {
+        if (empty($_SESSION)) {
+            header('Location: /user/login');
+        }
+        else if (isset($_SESSION)){
+            if ($_SESSION['role'] === 'utilisateur') {
+                header('Location:/');
+            }
+        }
+        else if (isset($_SESSION)) {
+            if ($_SESSION['role'] === 'admin') {
+                header('Location:/users');
+            }
+        }
         $userManager = new UserManager();
         $users = $userManager->selectAll('nickname');
         if (isset($_POST['suppr'])) {
@@ -42,22 +55,33 @@ class UserController extends AbstractController
             $userManager->deleteAll($ids);
             header('Location:/users');
         }
-
         return $this->twigRender('User/index.html.twig', ['users' => $users]);
     }
 
     public function show(int $id): string
     {
+        if (empty($_SESSION)) {
+            header('Location: /user/login');
+        }
         $userManager = new UserManager();
         $user = $userManager->selectOneById($id);
+        if ($_SESSION['id'] != $user && $_SESSION['role'] === 'utilisateur') {
+            header('Location: /');
+        }
 
         return $this->twigRender('User/show.html.twig', ['user' => $user]);
     }
 
     public function edit(int $id): string
     {
+        if (empty($_SESSION)) {
+            header('Location: /user/login');
+        }
         $userManager = new UserManager();
         $user = $userManager->selectOneById($id);
+        if ($_SESSION['id'] != $user && $_SESSION['role'] === 'utilisateur') {
+            header('Location: /');
+        }
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user = array_map('trim', $_POST);
             $userManager->update($user);
@@ -118,7 +142,7 @@ class UserController extends AbstractController
                 foreach ($loginFromDataBase as $key => $value) {
                     $_SESSION[$key] = $value;
                 }
-                header("Location:/");
+                header('Location:/user/show?id=' . $_SESSION['id']);
             }
             $errors[]  = "Email or password invalid!";
         }
