@@ -35,8 +35,8 @@ class UserController extends AbstractController
 
     public function index(): string
     {
-        $this->isConnected();
-        $this->whichRole();
+        $this->checkAuthentification();
+        $this->checkIfRoleIsAdminOrUser();
         $userManager = new UserManager();
         $users = $userManager->selectAll('nickname');
         if (isset($_POST['suppr'])) {
@@ -51,8 +51,8 @@ class UserController extends AbstractController
     {
         $userManager = new UserManager();
         $user = $userManager->selectOneById($id);
-        $this->isConnected();
-        $this->accessGranted($user);
+        $this->checkAuthentification();
+        $this->checkIfUserAsAccessToPage($user);
         return $this->twigRender('User/show.html.twig', ['user' => $user]);
     }
 
@@ -60,8 +60,8 @@ class UserController extends AbstractController
     {
         $userManager = new UserManager();
         $user = $userManager->selectOneById($id);
-        $this->isConnected();
-        $this->accessGranted($user);
+        $this->checkAuthentification();
+        $this->checkIfUserAsAccessToPage($user);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user = array_map('trim', $_POST);
             $userManager->update($user);
@@ -135,14 +135,14 @@ class UserController extends AbstractController
         header("Location:/");
     }
 
-    public function isConnected()
+    public function checkAuthentification()
     {
         if (empty($_SESSION)) {
             header('Location: /user/login');
         }
     }
 
-    public function whichRole()
+    public function checkIfRoleIsAdminOrUser()
     {
         if (isset($_SESSION)) {
             if ($_SESSION['role'] === 'utilisateur') {
@@ -153,7 +153,7 @@ class UserController extends AbstractController
         }
     }
 
-    public function accessGranted($user)
+    public function checkIfUserAsAccessToPage($user)
     {
         if (!empty($_SESSION)) {
             if ($_SESSION['id'] != $user && $_SESSION['role'] === 'utilisateur') {
