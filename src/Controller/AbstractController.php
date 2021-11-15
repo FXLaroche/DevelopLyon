@@ -29,6 +29,9 @@ abstract class AbstractController
         $this->twig->addExtension(new DebugExtension());
     }
 
+    /**
+     *  Verifies whether the url contains the expression.
+     */
     public function urlContains($expr)
     {
         $regex = '/\/' . $expr . '/';
@@ -57,10 +60,24 @@ abstract class AbstractController
             return $postData[$arrayIndex];
         }
         if (isset($_GET['theme'])) {
-            return (int)trim($_GET['theme']);
+            $themeManager = new ThemeManager();
+            $themeId = (int)trim($_GET['theme']);
+            $categoryId = (int)$themeManager->selectCategoryIdFromTheme($themeId)['category_id'];
+            return $categoryId;
         }
         return null;
     }
+
+    public function themeId()
+    {
+        if (isset($_GET['theme'])) {
+            $themeId = (int)trim($_GET['theme']);
+
+            return $themeId;
+        }
+        return null;
+    }
+
     public function getThemeList(?int $categoryId): array
     {
         $themeList = [];
@@ -100,6 +117,13 @@ abstract class AbstractController
         $this->fillParams($params['postData'], $this->getPostData());
 
         $categoryId = $this->categoryId($params['postData'], 'category_id');
+        if (!isset($params['postData']['category_id'])) {
+            $params['postData']['category_id'] = $categoryId;
+        }
+        $themeId = $this->themeId();
+        if (!isset($params['postData']['theme_id'])) {
+            $params['postData']['theme_id'] = $themeId;
+        }
         $this->fillParams($params['themeList'], $this->getThemeList($categoryId));
 
         $this->fillParams($params['categoryList'], $this->getCategoryList());

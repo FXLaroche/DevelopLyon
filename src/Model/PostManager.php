@@ -55,4 +55,30 @@ class PostManager extends AbstractManager
 
         return $statement->fetch();
     }
+
+
+        /**
+     * Get all row from database.
+     */
+    public function selectAllById(int $idCategory, string $orderBy = '', string $direction = 'ASC'): array
+    {
+        $query = 'SELECT th.name,
+        th.id as theme_id,
+        po.id,
+        po.subject,
+        count(me.id) AS numberMessage,
+        max(me.date) AS lastModify
+        FROM ' . static::TABLE . ' as po LEFT JOIN
+        message as me ON me.post_id = po.id JOIN
+        theme as th ON po.theme_id = th.id WHERE
+        theme_id = :idcategory GROUP BY po.id';
+        if ($orderBy) {
+            $query .= ' ORDER BY ' . $orderBy . ' ' . $direction;
+        }
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue('idcategory', $idCategory, \PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetchAll();
+    }
 }

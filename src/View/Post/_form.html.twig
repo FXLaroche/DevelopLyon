@@ -1,25 +1,16 @@
+
+	
+<h1>Créer un post</h1>
 <form class="container-fluid" action="" method="post">
-	<div>
-		<label for="subject">Title:
-		</label>
+	<div class="container w-50 pt-4 pb-2 bg-primary">
+		<input type="text" class="form-control mb-3" name="subject" id="subject" placeholder="Nom de votre sujet" maxlength="255" required>
 	</div>
-	<div>
-		<input type="text" name="subject" id="subject" maxlength="255" required>
+	<div class="container w-50 pt-4 pb-2 bg-light shadow ">
+		<textarea name="message" id="message" class="form-control mb-3" cols="30" rows="10" placeholder="Ecrire votre message..." required></textarea>
+	
+		<input type="text" class="form-control mb-3" name="keyword" id="keyword" placeholder="Mot-clés:" maxlength="255"></textarea>
 	</div>
-	<div>
-		<label for="message">Your message:
-		</label>
+	<div class="container w-50 d-flex justify-content-center">
+		<input type="submit" class="btn btn-primary" value="Envoyer le message">
 	</div>
-	<div>
-		<textarea name="message" id="message" cols="30" rows="10" required></textarea>
-	</div>
-	<div>
-		<label for="keyword">Related Keywords:
-		</label>
-	</div>
-	<div>
-		<input type="text" name="keyword" id="keyword" maxlength="255"></textarea>
-</div>
-<div>
-	<input type="submit" value="Post">
-</div></form>
+</form>
