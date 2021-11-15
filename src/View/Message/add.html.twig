@@ -1,0 +1,37 @@
+{% extends "layout.html.twig" %}
+
+{% block title %} <h1>Ajouter un nouveau message</h1> {% endblock %}
+
+{% block content %}
+<div class="container">
+<div class="col-md-4">
+    <form method="POST">
+
+        <p class="row">
+            <label class="form-label">USER_id : </label>
+            <input class="form-controle"name="user_id"/>
+        </p>
+        
+        
+        <p class="row">
+            <label>Post_id : </label>
+            <input class="form-controle"name="post_id"/>
+        </p>
+        
+        
+        
+        <p class="row">
+            <label>Date : </label>
+            <input class="form-controle"name="date"/>
+        </p>
+        
+        
+        <p class="row">
+            <label>Message : </label>
+            <input class="form-controle"name="message"/>
+        </p>
+        
+        <p class="row">
+            <button class="form-controle"type="submit">Poster le message</button>
+        </p>
+{% endblock %}

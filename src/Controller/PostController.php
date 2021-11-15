@@ -9,12 +9,18 @@ use App\Model\ThemeManager;
 
 class PostController extends AbstractController
 {
-    private PostManager $postManager;
 
+    private PostManager $postManager;
     public function __construct()
     {
         parent::__construct();
         $this->postManager = new PostManager();
+    }
+    public function show(int $id): string
+    {
+        $post = $this->postManager->selectOneById($id);
+
+        return $this->twig->render('Post/show.html.twig', ['post' => $post]);
     }
 
     public function themeIsOk($themeId): bool
@@ -121,5 +127,12 @@ class PostController extends AbstractController
 
             return $this->twigRender('Post/search.html.twig', ['results' => $results]);
         }
+    }
+    public function index(int $idCategory): string
+    {
+        $postManager = new PostManager();
+        $posts = $postManager->selectAllById($idCategory);
+
+        return $this->twigRender('Post/index.html.twig', ['posts' => $posts]);
     }
 }
