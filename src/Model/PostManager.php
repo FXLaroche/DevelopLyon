@@ -46,8 +46,15 @@ class PostManager extends AbstractManager
      */
     public function selectAllById(int $idCategory, string $orderBy = '', string $direction = 'ASC'): array
     {
-        $query = 'SELECT th.name, po.id, po.subject, count(me.id) AS numberMessage, max(me.date) AS lastModify FROM ' . static::TABLE . ' as po LEFT JOIN message as me ON me.post_id = po.id JOIN theme
-        as th ON po.theme_id = th.id WHERE theme_id = :idcategory GROUP BY po.id';
+        $query = 'SELECT th.name,
+        po.id,
+        po.subject,
+        count(me.id) AS numberMessage,
+        max(me.date) AS lastModify
+        FROM ' . static::TABLE . ' as po LEFT JOIN
+        message as me ON me.post_id = po.id JOIN
+        theme as th ON po.theme_id = th.id WHERE
+        theme_id = :idcategory GROUP BY po.id';
         if ($orderBy) {
             $query .= ' ORDER BY ' . $orderBy . ' ' . $direction;
         }
