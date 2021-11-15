@@ -104,10 +104,6 @@ abstract class AbstractController
 
         $this->fillParams($params['categoryList'], $this->getCategoryList());
 
-        var_dump($params['postData']);
-        var_dump($params['themeList']);
-        var_dump($params['categoryList']);
-
         if (isset($_SESSION['nickname'])) {
             $params['nickname'] = $_SESSION['nickname'];
             $params['connectionOption'] = "Se déconnecter";
