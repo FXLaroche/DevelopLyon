@@ -35,6 +35,8 @@ class UserController extends AbstractController
 
     public function index(): string
     {
+        $this->checkAuthentification();
+        $this->checkIfRoleIsAdminOrUser();
         $userManager = new UserManager();
         $users = $userManager->selectAll('nickname');
         if (isset($_POST['suppr'])) {
@@ -42,7 +44,6 @@ class UserController extends AbstractController
             $userManager->deleteAll($ids);
             header('Location:/users');
         }
-
         return $this->twigRender('User/index.html.twig', ['users' => $users]);
     }
 
@@ -50,7 +51,8 @@ class UserController extends AbstractController
     {
         $userManager = new UserManager();
         $user = $userManager->selectOneById($id);
-
+        $this->checkAuthentification();
+        $this->checkIfUserAsAccessToPage($user);
         return $this->twigRender('User/show.html.twig', ['user' => $user]);
     }
 
@@ -58,10 +60,11 @@ class UserController extends AbstractController
     {
         $userManager = new UserManager();
         $user = $userManager->selectOneById($id);
+        $this->checkAuthentification();
+        $this->checkIfUserAsAccessToPage($user);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user = array_map('trim', $_POST);
             $userManager->update($user);
-
             $extensions = ['jpg', 'png', 'jpeg', 'gif'];
             $maxSize = 400000;
             $tmpName = $_FILES['profile_image']['tmp_name'];
@@ -118,7 +121,7 @@ class UserController extends AbstractController
                 foreach ($loginFromDataBase as $key => $value) {
                     $_SESSION[$key] = $value;
                 }
-                header("Location:/");
+                header('Location:/user/show?id=' . $_SESSION['id']);
             }
             $errors[]  = "Email or password invalid!";
         }
@@ -130,5 +133,32 @@ class UserController extends AbstractController
     {
         session_destroy();
         header("Location:/");
+    }
+
+    public function checkAuthentification()
+    {
+        if (empty($_SESSION)) {
+            header('Location: /user/login');
+        }
+    }
+
+    public function checkIfRoleIsAdminOrUser()
+    {
+        if (isset($_SESSION)) {
+            if ($_SESSION['role'] === 'utilisateur') {
+                header('Location:/');
+            } elseif ($_SESSION['role'] === 'admin') {
+                header('Location:/users');
+            }
+        }
+    }
+
+    public function checkIfUserAsAccessToPage($user)
+    {
+        if (!empty($_SESSION)) {
+            if ($_SESSION['id'] != $user && $_SESSION['role'] === 'utilisateur') {
+                header('Location: /');
+            }
+        }
     }
 }
