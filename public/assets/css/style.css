@@ -39,16 +39,20 @@ a {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    background-color: grey;
+    background-color: lightgrey;
 }
 .barre {
     background-color: #1A2B3B;
-    width: 20vw;
+    width: 15vw;
     height: 100vh;
 }
 .titre_barre {
     color: white;
     text-decoration: underline;
+}
+
+.titre_profil {
+    font-size: 2em;
 }
 
 .img-category {
