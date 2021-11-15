@@ -20,6 +20,6 @@ class MessageController extends ItemController
             header('Location:/posts/show?id=' . $id);
         }
 
-        return $this->twig->render('Message/add.html.twig');
+        return $this->twigRender('Message/add.html.twig');
     }
 }

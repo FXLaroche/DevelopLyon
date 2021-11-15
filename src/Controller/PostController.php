@@ -6,6 +6,7 @@ use App\Model\PostManager;
 use App\Model\RedirectionManager;
 use App\Model\SearchManager;
 use App\Model\ThemeManager;
+use App\Model\MessageManager;
 
 class PostController extends AbstractController
 {
@@ -16,11 +17,14 @@ class PostController extends AbstractController
         parent::__construct();
         $this->postManager = new PostManager();
     }
+
     public function show(int $id): string
     {
-        $post = $this->postManager->selectOneById($id);
+        $post = $this->postManager->selectOnePostById($id);
+        $messageManager = new MessageManager;
+        $messages = $messageManager->selectAllMessageForOnePost($id);
 
-        return $this->twig->render('Post/show.html.twig', ['post' => $post]);
+        return $this->twigRender('Post/show.html.twig', ['post' => $post, 'messages' => $messages]);
     }
 
     public function themeIsOk($themeId): bool
