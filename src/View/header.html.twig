@@ -1,34 +1,70 @@
 <header class="p-3 mb-3 border-bottom">
-	<div class="container">
-		<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+	<div class="container-flex">
+		<div class="row">
 
-			<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-				<li>
-					<a href="/" class="nav-link px-2 link-secondary">Home</a>
-				</li>
-				<li>
-					<a href="#" class="nav-link px-2 link-dark">Langages</a>
-				</li>
-				<li>
-					<a href="#" class="nav-link px-2 link-dark">Thèmes</a>
-				</li>
-			</ul>
+			<nav class="col-auto navbar navbar-expand-lg navbar-light me-auto d-flex align-items-start">
+				<div class="container-fluid">
+					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="bi bi-list-ul"></span>
+					</button>
+					<div class="container-flex collapse navbar-collapse" id="navbarMenu">
+						<ul class="navbar-nav">
+							<li class="nav-item">
+								<a class="nav-link" href="/">Home</a>
+							</li>
+							{% if categoryList is not empty %}
+								{% set sectionName = 'Catégories' %}
+								{% set table = categoryList %}
+								{% set url = '/themes/index?id' %}
+								{% include "dropdown.html.twig" %}
+							{% endif %}
+							{% if themeList is not empty %}
+								{% set sectionName = 'Thèmes' %}
+								{% set table = themeList %}
+								{% set url = '/theme?id' %}
+								{% include "dropdown.html.twig" %}
+							{% endif %}
 
-			<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" action="/posts/search" method='POST'>
-				<div>
-					<input type="search" id="maRecherche" name="maRecherche" placeholder="Rechercher un post…" aria-label="Rechercher parmi le contenu du site" onKeyUp="check(this)" onChange="check(this)">
-					<datalist id="maRecherche">
-						{% for search in searchs %}
-							<option value="{{ search.word }}">
-						{% endfor %}
-					</datalist>
-					<button>Rechercher</button>
+						</ul>
+					</div>
 				</div>
-			</form>
+			</nav>
 
-			<div class="text-end">
-				<a href="/user/{{connectionLink}}" class="nav-link px-2 link-dark">{{connectionOption}}</a>
+			<nav class="col-auto navbar navbar-expand-lg navbar-light d-flex align-items-start">
+				<form class="container-fluid d-flex justify-content-end" role="search" action="/posts/search" method='POST'>
+					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSearch" aria-controls="navbarSearch" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="bi bi-search"></span>
+					</button>
+					<div class="container-flex mt-2 collapse navbar-collapse" id="navbarSearch">
+
+						<input type="search" id="maRecherche" name="maRecherche" placeholder="Rechercher un post…" aria-label="Rechercher parmi le contenu du site" onkeyup="check(this)" onchange="check(this)">
+						<datalist id="maRecherche">
+							{% for search in searchs %}
+								<option value="{{ search.word }}">
+								{% endfor %}
+							</datalist>
+							<button>Rechercher</button>
+						</div>
+					</form>
+				</nav>
+
+				<nav class="col-auto navbar navbar-expand-lg navbar-light col-auto d-flex align-items-start">
+					<div class="container-fluid d-flex justify-content-end">
+						<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarConnect" aria-controls="navbarSearch" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="bi bi-person-circle"></span>
+						</button>
+						<div class="text-end container-flex collapse navbar-collapse" id="navbarConnect">
+							<ul class="navbar-nav">
+								<li class="nav-item">
+									<a href="/user/{{connectionLink}}" class="nav-link px-2 link-dark">{{connectionOption}}</a>
+								</li>
+								<li class="nav-item">
+									<a href="/user/{{profileLink}}" class="nav-link px-2 link-dark">{{profileOption}}</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</nav>
 			</div>
 		</div>
-	</div>
-</header>
+	</header>

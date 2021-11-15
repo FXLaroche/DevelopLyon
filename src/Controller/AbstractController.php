@@ -104,14 +104,22 @@ abstract class AbstractController
 
         $this->fillParams($params['categoryList'], $this->getCategoryList());
 
+        var_dump($params['postData']);
+        var_dump($params['themeList']);
+        var_dump($params['categoryList']);
+
         if (isset($_SESSION['nickname'])) {
             $params['nickname'] = $_SESSION['nickname'];
             $params['connectionOption'] = "Se déconnecter";
             $params['connectionLink']  = "logout";
+            $params['profileOption'] = "Mon profil";
+            $params['profileLink'] = "show?id=" . $_SESSION['id'];
         } else {
             $params['nickname'] = "";
             $params['connectionOption'] = "Se connecter";
             $params['connectionLink']  = "login";
+            $params['profileOption'] = "S'inscrire";
+            $params['profileLink'] = "add";
         }
         return $this->twig->render($template, $params);
     }
