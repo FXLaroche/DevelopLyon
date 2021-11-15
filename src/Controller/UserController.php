@@ -37,13 +37,11 @@ class UserController extends AbstractController
     {
         if (empty($_SESSION)) {
             header('Location: /user/login');
-        }
-        else if (isset($_SESSION)){
+        } elseif (isset($_SESSION)) {
             if ($_SESSION['role'] === 'utilisateur') {
                 header('Location:/');
             }
-        }
-        else if (isset($_SESSION)) {
+        } elseif (isset($_SESSION)) {
             if ($_SESSION['role'] === 'admin') {
                 header('Location:/users');
             }
