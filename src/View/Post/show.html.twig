@@ -1,0 +1,32 @@
+{% extends "layout.html.twig" %}
+{% block title %} <h1> Afficher un poste <h1>{% endblock %}
+{% block content %}
+ <div class="container col-md-12">
+
+		<div class="searchResult container">
+
+				<div class="post col-md-12">
+					<div class="data_user col-md-12 text-start">
+						{% if result.picture_link == NULL %}
+							<img src="/assets/images/index.png" class="rounded-circle" alt="{{ post.nickname }} photo">
+						{% else %}
+							<img src="/assets/images/{{ result.picture_link }}" class="rounded-circle" alt="{{ post.nickname }} photo">
+						{% endif %}
+						<p>{{ post.nickname }}</p>
+					
+					<div class="row data_post col-lg text-center">
+						<div>
+							<p class="col-md-10">{{ post.subject }}</p>
+						</div>
+						<div class="align-self-end text-end">
+							<p>le
+								{{ post.date|date("d/m/Y") }}
+								à
+								{{ post.date|date('H:i') }}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
