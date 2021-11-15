@@ -35,17 +35,8 @@ class UserController extends AbstractController
 
     public function index(): string
     {
-        if (empty($_SESSION)) {
-            header('Location: /user/login');
-        } elseif (isset($_SESSION)) {
-            if ($_SESSION['role'] === 'utilisateur') {
-                header('Location:/');
-            }
-        } elseif (isset($_SESSION)) {
-            if ($_SESSION['role'] === 'admin') {
-                header('Location:/users');
-            }
-        }
+        $this->isConnected();
+        $this->whichRole();
         $userManager = new UserManager();
         $users = $userManager->selectAll('nickname');
         if (isset($_POST['suppr'])) {
@@ -58,32 +49,22 @@ class UserController extends AbstractController
 
     public function show(int $id): string
     {
-        if (empty($_SESSION)) {
-            header('Location: /user/login');
-        }
         $userManager = new UserManager();
         $user = $userManager->selectOneById($id);
-        if ($_SESSION['id'] != $user && $_SESSION['role'] === 'utilisateur') {
-            header('Location: /');
-        }
-
+        $this->isConnected();
+        $this->accessGranted($user);
         return $this->twigRender('User/show.html.twig', ['user' => $user]);
     }
 
     public function edit(int $id): string
     {
-        if (empty($_SESSION)) {
-            header('Location: /user/login');
-        }
         $userManager = new UserManager();
         $user = $userManager->selectOneById($id);
-        if ($_SESSION['id'] != $user && $_SESSION['role'] === 'utilisateur') {
-            header('Location: /');
-        }
+        $this->isConnected();
+        $this->accessGranted($user);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user = array_map('trim', $_POST);
             $userManager->update($user);
-
             $extensions = ['jpg', 'png', 'jpeg', 'gif'];
             $maxSize = 400000;
             $tmpName = $_FILES['profile_image']['tmp_name'];
@@ -152,5 +133,32 @@ class UserController extends AbstractController
     {
         session_destroy();
         header("Location:/");
+    }
+
+    public function isConnected()
+    {
+        if (empty($_SESSION)) {
+            header('Location: /user/login');
+        }
+    }
+
+    public function whichRole()
+    {
+        if (isset($_SESSION)) {
+            if ($_SESSION['role'] === 'utilisateur') {
+                header('Location:/');
+            } elseif ($_SESSION['role'] === 'admin') {
+                header('Location:/users');
+            }
+        }
+    }
+
+    public function accessGranted($user)
+    {
+        if (!empty($_SESSION)) {
+            if ($_SESSION['id'] != $user && $_SESSION['role'] === 'utilisateur') {
+                header('Location: /');
+            }
+        }
     }
 }
