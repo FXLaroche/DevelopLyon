@@ -1,22 +1,25 @@
 {% extends 'layout.html.twig' %}
 
+{% block title %}
+	{{parent()}}Inscription
+{% endblock %}
+
 {% block content %}
 
 	<h1>Se créer un compte</h1>
 
-	<div class="container d-flex flex-column align-items-center">
 		<form method="post">
-			<div class="form-group">
+			<div class="container w-50">
 				<label for="nickname">Identifiant :</label>
 				<input type="text" name="nickname" class="form-control mb-3" placeholder="Nom d'utilisateur">
 			</div>
 
-			<div class="form-group">
+			<div class="container w-50">
 				<label for="email">Email :</label>
-				<input type="email" name="email" class="form-control mb-3" placeholder="exemple@exemple.fr">
+				<input type="email" name="email" class="form-control mb-3" placeholder="exemple@gmail.com">
 			</div>
 
-			<div class="form-group">
+			<div class="container w-50">
 				<label for="password">Mot de passe :</label>
 				<input type="password" name="password" class="form-control mb-3" placeholder="Mot de passe">
 			</div>
@@ -27,8 +30,7 @@
 				<input type="submit" value="S'inscrire" class="btn btn-primary mb-2">
 			</div>
 		</form>
-		<a href="/users" class="btn btn-primary mb-2">Retourner sur l'index</a>
-	</div>
+
 
 
 {% endblock %}

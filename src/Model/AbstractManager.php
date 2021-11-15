@@ -20,7 +20,7 @@ abstract class AbstractManager
 {
     protected PDO $pdo;
 
-    public const TABLE = '';
+    public const TABLE = 'user';
 
     public function __construct()
     {
@@ -31,7 +31,7 @@ abstract class AbstractManager
     /**
      * Get all row from database.
      */
-    public function selectAll(string $orderBy = '', string $direction = 'ASC'): array
+    public function selectAll(string $orderBy = 'id', string $direction = 'DESC'): array
     {
         $query = 'SELECT * FROM ' . static::TABLE;
         if ($orderBy) {

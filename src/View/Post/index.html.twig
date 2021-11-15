@@ -4,11 +4,29 @@
 <h1>Liste des posts</h1>
 <main class="container">
     <div class="row">
-        {% for post in posts %}
-            <table class="table table-secondary table-striped"><thead><th><a href="/posts/show?id={{ post.id }}">{{ post.id }}. {{ post.subject }}</a></th></thead></table>
-        {% else %}
-            <div class="row">Nothing to display</div>
-        {% endfor %}
+			{% for post in posts %}
+
+				<div class="theme col-xs-12 col-sm-4">
+
+					<a class="liens" href="/post/show?id={{ post.id }}">
+						<div class="text-theme">
+							<h2 class="h2-theme">{{ post.subject }}</h2>
+						</div>
+					</a>
+					<div class="row detail-theme">
+						<div class="sujets col">
+							<p>{{ post.numberMessage }}
+								messages actuels</p>
+						</div>
+						<div class="actu col">
+							<p>dernière actualité le {{ post.lastModify|date("d/m/Y") }}
+							</p>
+						</div>
+					</div>
+
+				</div>
+
+			{% endfor %}
     </div>
-    <a class="btn btn-outline-secondary" href="/posts/add">Ajouter un nouveau post</a>
+    <a class="btn btn-outline-secondary" href="/post/add">Ajouter un nouveau post</a>
 {% endblock %}
