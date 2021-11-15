@@ -21,7 +21,7 @@ class ThemeManager extends AbstractManager
         max(po.date) as last_date_post 
         FROM post as po JOIN ' . static::TABLE . ' as th ON po.theme_id = th.id 
         JOIN category as ca ON th.category_id = ca.id
-        WHERE ca.id = :idcategory GROUP BY th.id';
+        WHERE ca.id = :idcategory GROUP BY th.id;';
         if ($orderBy) {
             $query .= ' ORDER BY ' . $orderBy . ' ' . $direction;
         }
@@ -36,7 +36,7 @@ class ThemeManager extends AbstractManager
 
     public function selectThemesBycategoryId(int $categoryId)
     {
-        $query = "";
+        $query = "SELECT * FROM theme t WHERE t.category_id=:categoryId;";
 
         $statement = $this->pdo->prepare($query);
         $statement->bindValue(':categoryId', $categoryId, \PDO::PARAM_INT);
