@@ -16,13 +16,13 @@
 			{% for result in results %}
 
 				<div class="post row">
-					<a class="liens container" href="/posts/show?id={{ result.id }}">
+					<a class="liens container" href="/post/show?id={{ result.id }}">
 					<div class="row">
 						<div class="data_user col-lg-2 text-center">
 							{% if result.picture_link == NULL %}
-								<img src="/assets/images/index.png" class="rounded-circle" alt="{{ result.nickname }} photo">
+								<img src="/assets/images/index.png" class="img-fluid rounded-circle" alt="{{ result.nickname }} photo">
 							{% else %}
-								<img src="/assets/images/{{ result.picture_link }}" class="rounded-circle" alt="{{ result.nickname }} photo">
+								<img src="/assets/images/{{ result.picture_link }}" class="img-fluid rounded-circle" alt="{{ result.nickname }} photo">
 							{% endif %}
 							<p>{{ result.nickname }}</p>
 						</div>

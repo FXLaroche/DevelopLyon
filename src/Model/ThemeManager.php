@@ -19,7 +19,7 @@ class ThemeManager extends AbstractManager
         ca.name as name_category,
         count(po.id) as number_post,
         max(po.date) as last_date_post 
-        FROM post as po JOIN ' . static::TABLE . ' as th ON po.theme_id = th.id 
+        FROM post as po RIGHT JOIN ' . static::TABLE . ' as th ON po.theme_id = th.id 
         JOIN category as ca ON th.category_id = ca.id
         WHERE ca.id = :idcategory GROUP BY th.id;';
         if ($orderBy) {
