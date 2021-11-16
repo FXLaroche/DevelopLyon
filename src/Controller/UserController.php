@@ -137,14 +137,17 @@ class UserController extends AbstractController
 
     public function checkAuthentification()
     {
-        if (empty($_SESSION)) {
+        if (!empty($_SESSION)) {
+        } elseif (empty($_SESSION)) {
             header('Location: /user/login');
         }
     }
 
     public function checkIfRoleIsAdminOrUser()
     {
-        if (isset($_SESSION)) {
+        if (empty($_SESSION)) {
+        }
+        if (!empty($_SESSION)) {
             if ($_SESSION['role'] === 'utilisateur') {
                 header('Location:/');
             } elseif ($_SESSION['role'] === 'admin') {

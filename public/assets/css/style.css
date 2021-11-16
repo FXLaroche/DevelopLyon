@@ -13,6 +13,7 @@ body {
 }
 header {
     background-color: #ACAAF4;
+    width: 100vw;
 }
 a {
     font-family: 'Varela Round', sans-serif;
@@ -91,4 +92,12 @@ a {
 
 .h2-theme {
     color: white;
+}
+
+.modification {
+    width: 100vw;
+}
+
+.row {
+    --bs-gutter-x: 0rem;
 }
