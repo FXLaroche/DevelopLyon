@@ -54,7 +54,7 @@ abstract class AbstractController
         return $postData;
     }
 
-    public function categoryId(array $postData, string $arrayIndex): ?int
+    public function getCurrentcategoryId(array $postData, string $arrayIndex): ?int
     {
         if (isset($postData[$arrayIndex])) {
             return $postData[$arrayIndex];
@@ -68,7 +68,7 @@ abstract class AbstractController
         return null;
     }
 
-    public function themeId()
+    public function getThemeId()
     {
         if (isset($_GET['theme'])) {
             $themeId = (int)trim($_GET['theme']);
@@ -116,11 +116,11 @@ abstract class AbstractController
 
         $this->fillParams($params['postData'], $this->getPostData());
 
-        $categoryId = $this->categoryId($params['postData'], 'category_id');
+        $categoryId = $this->getCurrentcategoryId($params['postData'], 'category_id');
         if (!isset($params['postData']['category_id'])) {
             $params['postData']['category_id'] = $categoryId;
         }
-        $themeId = $this->themeId();
+        $themeId = $this->getThemeId();
         if (!isset($params['postData']['theme_id'])) {
             $params['postData']['theme_id'] = $themeId;
         }
@@ -129,7 +129,9 @@ abstract class AbstractController
         $this->fillParams($params['categoryList'], $this->getCategoryList());
 
         if (isset($_SESSION['nickname'])) {
-            $params['nickname'] = $_SESSION['nickname'];
+            foreach ($_SESSION as $key => $value) {
+                $params[$key] = $value;
+            }
             $params['connectionOption'] = "Se déconnecter";
             $params['connectionLink']  = "logout";
             $params['profileOption'] = "Mon profil";
