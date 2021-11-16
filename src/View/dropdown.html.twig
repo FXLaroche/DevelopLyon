@@ -1,0 +1,12 @@
+<li class="nav-item dropdown">
+	<a class="nav-link dropdown-toggle" href="#" id="navbar{{sectionName}}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		{{sectionName}}
+	</a>
+	<ul class="dropdown-menu" aria-labelledby="navbar{{sectionName}}">
+	{% for key, array in table %}
+		<li>
+			<a class="dropdown-item" href="{{url}}={{array.id}}">{{array.name}}</a>
+		</li>
+		{% endfor %}
+	</ul>
+</li>

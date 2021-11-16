@@ -3,9 +3,9 @@
 namespace App\Controller;
 
 use App\Model\PostManager;
-use App\Model\RedirectionManager;
 use App\Model\SearchManager;
 use App\Model\ThemeManager;
+use App\Controller\UserController;
 use App\Model\MessageManager;
 
 class PostController extends AbstractController
@@ -50,6 +50,8 @@ class PostController extends AbstractController
         if ($_SERVER['REQUEST_METHOD'] === 'GET' && !$this->themeIsOk($themeId)) {
             header("Location:/error");
         }
+        $userController = new UserController();
+        $userController->checkAuthentification();
 
         $error = [];
 

@@ -44,12 +44,29 @@ class PostManager extends AbstractManager
         return $statement->fetchAll();
     }
 
+    public function selectPostTreeData(int $postId)
+    {
+        $query = "SELECT t.name theme_name, t.id theme_id, c.name cat_name, c.id category_id 
+        FROM theme t 
+        JOIN post p ON p.theme_id=t.id 
+        JOIN category c ON c.id=t.category_id 
+        WHERE p.id=:postId;";
+
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue(':postId', $postId, \PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetch();
+    }
+
+
         /**
      * Get all row from database.
      */
     public function selectAllById(int $idCategory, string $orderBy = '', string $direction = 'ASC'): array
     {
         $query = 'SELECT th.name,
+        th.id as theme_id,
         po.id,
         po.subject,
         count(me.id) AS numberMessage,
