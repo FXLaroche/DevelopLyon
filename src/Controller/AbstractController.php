@@ -40,6 +40,7 @@ abstract class AbstractController
             $params['connectionOption'] = "Se connecter";
             $params['connectionLink']  = "login";
         }
+        var_dump($params);
         return $this->twig->render($template, $params);
     }
 }

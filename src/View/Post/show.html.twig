@@ -32,7 +32,7 @@
 				</div>
 			</div>
 			{% for message in messages %}
-				<div class="post row">
+				<div class="message row">
 					<div class="data_user col-lg-2 text-center">
 						{% if message.picture_link == NULL %}
 							<img src="/assets/images/index.png" class="img-fluid rounded-circle" alt="{{ message.nickname }} photo">
@@ -54,6 +54,19 @@
 					</div>
 				</div>
 			{% endfor %}
+			{% if nickname is not empty %}
+				<div class="newmessage row">
+					<form method="post" accept-charset="UTF-8">
+						<p class="row">
+							<label>Nouveau message : </label>
+							<textarea class="form-controle" name="message"></textarea>
+						</p>
+						<p class="row">
+							<button class="form-controle" type="submit">Poster le message</button>
+						</p>
+					</form>
+				</div>
+			{% endif %}
 		</div>
 	</div>
 {% endblock %}

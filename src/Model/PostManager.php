@@ -30,11 +30,14 @@ class PostManager extends AbstractManager
     public function search(string $search): array
     {
         $search = "%" . $search . "%";
-        $statement = $this->pdo->prepare("SELECT post.id, user.picture_link,
-         user.nickname,
-         post.subject,
-         post.date FROM " . self::TABLE . " JOIN user ON post.user_id = user.id
-         WHERE keyword LIKE :search OR subject LIKE :search");
+        $statement = $this->pdo->prepare("SELECT po.id, us.picture_link,
+         us.nickname,
+         po.subject,
+         po.date, 
+         count(me.id) AS numberMessage FROM " . self::TABLE . " AS po JOIN user AS us ON po.user_id = us.id
+         LEFT JOIN message AS me ON me.post_id = po.id
+         WHERE keyword LIKE :search OR subject LIKE :search
+         GROUP BY po.id");
         $statement->bindValue('search', $search, \PDO::PARAM_STR);
 
         $statement->execute();

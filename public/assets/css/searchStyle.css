@@ -4,6 +4,12 @@ h1 {
 
 .post {
     border: solid;
-    background-color: blanchedalmond;
+    background-color: rgb(156, 152, 148);
+    margin-top: 15px;
+}
+
+.message {
+    border: solid;
+    background-color: rgb(230, 229, 227);
     margin-top: 15px;
 }

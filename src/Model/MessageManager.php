@@ -2,7 +2,7 @@
 
 namespace App\Model;
 
-class MessageManager extends ItemManager
+class MessageManager extends AbstractManager
 {
     public const TABLE = 'message';
 
