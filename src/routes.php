@@ -20,7 +20,7 @@ return [
     'items/add' => ['ItemController', 'add',],
     'items/delete' => ['ItemController', 'delete',],
     'Message/add' => ['MessageController', 'add',],
-    'posts/show' => ['PostController', 'show', ['id']],
+    'post/show' => ['PostController', 'show', ['id']],
     'post/add' => ['PostController', 'add', ['theme']],
     'posts/search' => ['PostController', 'search',],
     'user/logout' => ['UserController', 'logout'],
