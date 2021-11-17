@@ -149,7 +149,6 @@ class PostController extends AbstractController
         $userController = new UserController();
         $userController->checkAuthentification();
         $postData = $this->postManager->selectOneById($id);
-        var_dump($postData);
         if (!$userController->hasSameUserId($postData['user_id']) && $_SESSION['role'] !== 'admin') {
             header('Location:/post/show?id=' . $id);
         } else {
