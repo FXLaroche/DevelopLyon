@@ -5,10 +5,9 @@
 {% endblock %}
 
 {% block content %}
-<div class="fluid-container d-flex flex-row">
-    <h1 class="titre_profil display-6 text-white">Mon profil</h1>
-    <div class="container d-flex align-items-start justify-content-start p-5 col-xs-2">
-        <div class="container">
+    <h1 class="display-6">Mon profil</h1>
+    <div class="container d-flex align-items-start justify-content-start">
+        <div class="cadre container">
             <div class="d-flex align-items-center justify-content-center mb-3">
                 <div class="profile_image" style="background-image: url('/assets/images/{{user.picture_link}}')"></div>
             </div>
@@ -33,5 +32,4 @@
             </div>
         </div>
     </div>
-</div>
 {% endblock %}
