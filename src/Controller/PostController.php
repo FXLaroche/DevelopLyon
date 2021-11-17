@@ -6,6 +6,7 @@ use App\Model\PostManager;
 use App\Model\SearchManager;
 use App\Model\ThemeManager;
 use App\Controller\UserController;
+use App\Model\CategoryManager;
 use App\Model\MessageManager;
 
 class PostController extends AbstractController
@@ -44,12 +45,11 @@ class PostController extends AbstractController
         return false;
     }
 
-
-    public function add($themeId): string
+    /**
+     * Adds a new post
+     */
+    public function add(): string
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'GET' && !$this->themeIsOk($themeId)) {
-            header("Location:/error");
-        }
         $userController = new UserController();
         $userController->checkAuthentification();
 
@@ -60,26 +60,37 @@ class PostController extends AbstractController
             $newPost['user_id'] = $_SESSION['id'];
 
             if (strlen($newPost['subject']) > 255) {
-                $error[] = "I'm afraid your title is too long!";
+                $error[] = "Le titre est trop long!";
             }
             if (empty($newPost['subject'])) {
-                $error[] = "You forgot to give your post a title.";
+                $error[] = "Le titre est obligatoire";
             }
 
             if (empty($newPost['message'])) {
-                $error[] = "Please put a message, it's better.";
+                $error[] = "Vous devez rentrer un message.";
             }
 
             if (strlen($newPost['keyword']) > 255) {
-                $error[] = "Alas! you have too many keywords!";
+                $error[] = "Vous avez trop de mots-clés!";
             }
 
             if (empty($error)) {
-                $postId = $this->postManager->create($newPost, $themeId);
+                $postId = $this->postManager->create($newPost);
                 header('Location:/post/show?id=' . $postId);
             }
         }
-        return $this->twigRender('Post/add.html.twig', ['errors' => $error]);
+
+        $categoryManager = new CategoryManager();
+        $themeManager = new ThemeManager();
+
+        $categories = $categoryManager->selectAll();
+        $themes = $themeManager->selectAll();
+
+        return $this->twigRender('Post/add.html.twig', [
+            'errors' => $error,
+            'themes' => $themes,
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -134,6 +145,10 @@ class PostController extends AbstractController
             return $this->twigRender('Post/search.html.twig', ['results' => $results]);
         }
     }
+
+    /**
+     * Lists the posts of a theme
+     */
     public function index(int $idCategory): string
     {
         $postManager = new PostManager();

@@ -1,16 +1,31 @@
-
-	
-<h1>Créer un post</h1>
+<h1 class="display-6">Créer un post</h1>
 <form class="container-fluid d-flex flex-column align-items-center" action="" method="post">
-	<div class="container w-50 pt-4 pb-2 bg-primary">
+
+
+	<select class="selection form-select" name="theme_id" id="theme_id" required>
+	<option value="">Sélectionnez un thème</option>
+		{% for category in categories %}
+			<optgroup label="{{category.name}}">
+				{% for theme in themes %}
+					{% if theme.category_id == category.id %}
+						<option value="{{theme.id}}">{{theme.name}}</option>
+					{% endif %}
+				{% endfor %}
+			</optgroup>
+		{% endfor %}
+	</select>
+
+
+
+	<div class="message_text container w-50 pt-4 pb-2">
 		<input type="text" class="form-control mb-3" name="subject" id="subject" placeholder="Nom de votre sujet" maxlength="255" required>
 	</div>
 	<div class="container w-50 pt-4 pb-2 my-4 bg-light shadow ">
 		<textarea name="message" id="message" class="form-control mb-3" cols="30" rows="10" placeholder="Ecrire votre message..." required></textarea>
-	
+
 		<input type="text" class="form-control mb-3" name="keyword" id="keyword" placeholder="Mot-clés:" maxlength="255"></textarea>
-	</div>
-	<div class="container w-50 d-flex justify-content-center">
-		<input type="submit" class="btn btn-primary" value="Envoyer le message">
-	</div>
+</div>
+<div class="container w-50 d-flex justify-content-center">
+	<input type="submit" class="btn btn-primary" value="Envoyer le message">
+</div>
 </form>

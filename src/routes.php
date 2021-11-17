@@ -21,7 +21,7 @@ return [
     'items/delete' => ['ItemController', 'delete',],
     'post/Message/add' => ['MessageController', 'add',],
     'post/show' => ['PostController', 'show', ['id']],
-    'post/add' => ['PostController', 'add', ['theme']],
+    'post/add' => ['PostController', 'add',],
     'posts/search' => ['PostController', 'search',],
     'user/logout' => ['UserController', 'logout'],
     'themes/index' => ['ThemeController', 'listThemeByCategory', ['id']],

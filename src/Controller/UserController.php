@@ -35,14 +35,12 @@ class UserController extends AbstractController
 
     public function index(): string
     {
-        $this->checkAuthentification();
         $this->checkIfRoleIsAdminOrUser();
         $userManager = new UserManager();
         $users = $userManager->selectAll('nickname');
         if (isset($_POST['suppr'])) {
             $ids = implode(",", $_POST["suppr"]);
             $userManager->deleteAll($ids);
-            header('Location:/users');
         }
         return $this->twigRender('User/index.html.twig', ['users' => $users]);
     }
@@ -51,8 +49,7 @@ class UserController extends AbstractController
     {
         $userManager = new UserManager();
         $user = $userManager->selectOneById($id);
-        $this->checkAuthentification();
-        $this->checkIfUserAsAccessToPage($user);
+        $this->checkIfUserAsAccessToPage($id);
         return $this->twigRender('User/show.html.twig', ['user' => $user]);
     }
 
@@ -60,8 +57,7 @@ class UserController extends AbstractController
     {
         $userManager = new UserManager();
         $user = $userManager->selectOneById($id);
-        $this->checkAuthentification();
-        $this->checkIfUserAsAccessToPage($user);
+        $this->checkIfUserAsAccessToPage($id);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user = array_map('trim', $_POST);
             $userManager->update($user);
@@ -123,7 +119,7 @@ class UserController extends AbstractController
                 }
                 header('Location:/user/show?id=' . $_SESSION['id']);
             }
-            $errors[]  = "Email or password invalid!";
+            $errors[]  = "Email ou mot de passe invalide !";
         }
 
         return $this->twigRender('User/login.html.twig', ['errors' => $errors]);
@@ -144,21 +140,19 @@ class UserController extends AbstractController
 
     public function checkIfRoleIsAdminOrUser()
     {
-        if (isset($_SESSION)) {
+        if (!isset($_SESSION['role'])) {
+            header('Location:/');
+        } elseif (isset($_SESSION['role'])) {
             if ($_SESSION['role'] === 'utilisateur') {
                 header('Location:/');
-            } elseif ($_SESSION['role'] === 'admin') {
-                header('Location:/users');
             }
         }
     }
 
-    public function checkIfUserAsAccessToPage($user)
+    public function checkIfUserAsAccessToPage($id)
     {
-        if (!empty($_SESSION)) {
-            if ($_SESSION['id'] != $user && $_SESSION['role'] === 'utilisateur') {
-                header('Location: /');
-            }
+        if (!isset($_SESSION) || $_SESSION['id'] != $id) {
+            header('Location: /');
         }
     }
 }
