@@ -1,13 +1,14 @@
-<h1>Créer un post</h1>
+<h1>{% if postContent is defined %}Modifiez votre {% else %}Créer un {% endif %}post</h1>
 <form class="container-fluid d-flex flex-column align-items-center" action="" method="post">
 
 	<select name="theme_id" id="theme_id" required>
-	<option value="">Sélectionnez un thème</option>
+		<option value="">Sélectionnez un thème</option>
 		{% for category in categories %}
 			<optgroup label="{{category.name}}">
 				{% for theme in themes %}
 					{% if theme.category_id == category.id %}
-						<option value="{{theme.id}}">{{theme.name}}</option>
+						<option value="{{theme.id}}" {% if postContent is defined and postContent.theme_id==theme.id %} selected {% endif %}>{{theme.name}}
+						</option>
 					{% endif %}
 				{% endfor %}
 			</optgroup>
@@ -16,13 +17,13 @@
 
 
 	<div class="container w-50 pt-4 pb-2 bg-primary">
-		<input type="text" class="form-control mb-3" name="subject" id="subject" placeholder="Nom de votre sujet" maxlength="255" required>
+		<input type="text" class="form-control mb-3" name="subject" id="subject" placeholder="Nom de votre sujet" maxlength="255" {% if postContent is defined %} value="{{postContent.subject}}" {% endif %} required>
 	</div>
 	<div class="container w-50 pt-4 pb-2 my-4 bg-light shadow ">
-		<textarea name="message" id="message" class="form-control mb-3" cols="30" rows="10" placeholder="Ecrire votre message..." required></textarea>
-
-		<input type="text" class="form-control mb-3" name="keyword" id="keyword" placeholder="Mot-clés:" maxlength="255"></textarea>
-</div>
-<div class="container w-50 d-flex justify-content-center">
-	<input type="submit" class="btn btn-primary" value="Envoyer le message">
-</div></form>
+		<textarea name="message" id="message" class="form-control mb-3" cols="30" rows="10" placeholder="Ecrire votre message..." required>{% if postContent is defined %}{{postContent.message}}{% endif %}</textarea>
+		<input type="text" class="form-control mb-3" name="keyword" id="keyword" placeholder="Mot-clés:" maxlength="255" {% if postContent is defined %} value="{{postContent.keyword}}" {% endif %}></textarea>
+	</div>
+	<div class="container w-50 d-flex justify-content-center">
+		<input type="submit" class="btn btn-primary mb-2" value="Envoyer le message">
+	</div>
+</form>

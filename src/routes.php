@@ -22,6 +22,8 @@ return [
     'Message/add' => ['MessageController', 'add',],
     'post/show' => ['PostController', 'show', ['id']],
     'post/add' => ['PostController', 'add',],
+    'post/edit' => ['PostController', 'edit', ['id']],
+    'post/delete' => ['PostController', 'delete', ['id']],
     'posts/search' => ['PostController', 'search',],
     'user/logout' => ['UserController', 'logout'],
     'themes/index' => ['ThemeController', 'listThemeByCategory', ['id']],

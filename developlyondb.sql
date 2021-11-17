@@ -20,7 +20,7 @@ picture_link VARCHAR(255));
 CREATE TABLE theme(
 id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 category_id INT NOT NULL,
-FOREIGN KEY (category_id) REFERENCES category(id),
+FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE CASCADE,
 name VARCHAR(255));
 
 CREATE TABLE post(
@@ -29,38 +29,22 @@ subject VARCHAR(255) NOT NULL,
 user_id INT NOT NULL, 
 FOREIGN KEY (user_id) REFERENCES user(id),
 post_id INT NOT NULL, 
-FOREIGN KEY (post_id) REFERENCES post(id),
-date DATETIME DEFAULT CURRENT_TIMESTAMP,
-message TEXT NOT NULL);
+FOREIGN KEY (theme_id) REFERENCES theme(id) ON DELETE CASCADE,
+date DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+message TEXT NOT NULL,
+keyword VARCHAR(255));
 
 CREATE TABLE message(
 id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 user_id INT NOT NULL, 
 FOREIGN KEY (user_id) REFERENCES user(id),
 theme_id INT NOT NULL, 
-FOREIGN KEY (post_id) REFERENCES post(id),
-date DATETIME DEFAULT CURRENT_TIMESTAMP,
+FOREIGN KEY (post_id) REFERENCES post(id) ON DELETE CASCADE,
+date DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 message TEXT NOT NULL);
-
-CREATE TABLE notification(
-user_id INT NOT NULL,
-FOREIGN KEY (user_id) REFERENCES user(id),
-post_id INT NOT NULL,
-FOREIGN KEY (post_id) REFERENCES post(id));
 
 CREATE TABLE search(
 id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 word VARCHAR(63) NOT NULL,
 date_last DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 nb_searched INT NOT NULL);
-
-INSERT INTO category(name, picture_link) VALUES("PHP", "PHP.png");
-INSERT INTO category(name, picture_link) VALUES("JavaScript", "javascript.png");
-INSERT INTO theme(category_id, name) VALUES(1, "POO for noobs");
-INSERT INTO user(nickname, password, picture_link, email, role) VALUES("Effix", "1234", "pic.gif", "fx.laroche@gmail.com", "Admin");
-SELECT * FROM post;
-DELETE FROM post WHERE id=1;
-SELECT * FROM category;
-INSERT INTO theme(category_id, name) VALUES(1, "POO for kings");
-
-ALTER TABLE user MODIFY email VARCHAR(63) UNIQUE;

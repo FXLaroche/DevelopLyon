@@ -24,6 +24,25 @@ class PostManager extends AbstractManager
 
         return (int)$this->pdo->lastInsertId();
     }
+
+
+    public function edit(array $postData)
+    {
+        $query = "UPDATE " . self::TABLE . " SET subject=:subject, 
+        message=:message, 
+        keyword=:keyword,
+        theme_id=:theme_id
+         WHERE id = :id;";
+        $statement = $this->pdo->prepare($query);
+
+        $statement->bindValue(':subject', $postData['subject'], \PDO::PARAM_STR);
+        $statement->bindValue(':id', $postData['id'], \PDO::PARAM_STR);
+        $statement->bindValue(':theme_id', $postData['theme_id'], \PDO::PARAM_STR);
+        $statement->bindValue(':message', $postData['message'], \PDO::PARAM_STR);
+        $statement->bindValue(':keyword', $postData['keyword'], \PDO::PARAM_STR);
+
+        $statement->execute();
+    }
     /**
      * Search post in database
      */
@@ -57,7 +76,7 @@ class PostManager extends AbstractManager
     }
 
 
-        /**
+    /**
      * Get all row from database.
      */
     public function selectAllById(int $idCategory, string $orderBy = '', string $direction = 'ASC'): array
@@ -90,7 +109,9 @@ class PostManager extends AbstractManager
     {
         // prepared request
         $statement = $this->pdo->prepare("SELECT us.nickname,
+        us.id as user_id,
         us.picture_link,
+        po.id as post_id,
         po.subject,
         po.date,
         po.message FROM " . static::TABLE . " AS po JOIN user AS us ON po.user_id = us.id WHERE po.id=:id");

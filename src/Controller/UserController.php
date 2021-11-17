@@ -161,4 +161,12 @@ class UserController extends AbstractController
             }
         }
     }
+
+    public function hasSameUserId($id): bool
+    {
+        if (isset($_SESSION['id'])) {
+            return $_SESSION['id'] === $id;
+        }
+        return false;
+    }
 }
