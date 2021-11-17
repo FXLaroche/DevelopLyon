@@ -1,30 +1,18 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-
-	<div class="container">
 		<h1>Bienvenue sur le forum DevelopLyon !</h1>
-
-		<div class="listCategory row">
-		
+		<div class="container-fluid d-flex">
+		<div class="container-fluid box_home">
 			{% for category in categorys %}
-
-				<div class="category col-xs-12 col-sm-4">
-
-					<a href="themes/index?id={{ category.id }}">
-					<img class="img-category img-fluid img-thumbnail" src="assets/images/{{ category.picture_link }}" alt="image {{ category.name }}">
+				<div class="box_home_box">
+					<a class="h2_category" href="themes/index?id={{ category.id }}">
+						<div class="home_image d-flex align-items-center justify-content-center" style="background-image: url('/assets/images/{{category.picture_link}}')">
+							<h2 class="h2_category">{{ category.name }}</h2>
+						</div>
 					</a>
-					<div class="text">
-						<h2 class="h2-category">{{ category.name }}</h2>
-					</div>
 				</div>
-
-
-			{% endfor %}
-		
+			{% endfor %}	
 		</div>
-
-
-	</div>
-
+		</div>
 {% endblock %}

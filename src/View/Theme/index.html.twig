@@ -1,15 +1,19 @@
 {% extends 'layout.html.twig' %}
 
+{% block title %}
+    {{parent()}}Liste des thèmes
+{% endblock %}
+
 {% block content %}
 
 	<div class="container">
-		<h1>Liste des themes du langage {{ themes.name_category }}</h1>
+		<h1 class="display-6">Liste des themes du langage {{ themes.name_category }}</h1>
 
-		<div class="listTheme row">
+		<div class="listTheme row justify-content-center">
 
 			{% for theme in themes %}
 
-				<div class="theme col-xs-12 col-sm-4">
+				<div class="theme col-xs-10 col-sm-5">
 
 					<a class="liens" href="/posts/index?theme={{ theme.id_theme }}">
 						<div class="text-theme">
@@ -22,7 +26,7 @@
 								sujets actuels</p>
 						</div>
 						<div class="actu col">
-							<p>dernière actualité le {{ theme.last_date_post|date("d/m/Y") }}
+							<p>Dernière actualité le {{ theme.last_date_post|date("d/m/Y") }}
 							</p>
 						</div>
 					</div>
