@@ -146,12 +146,24 @@ a {
   width: 80vw;
 }
 
+.selection {
+  margin: 1em;
+  width: 55vw;
+}
+
+.message_text {
+  background-color: #acaaf4;
+}
+
 @media screen and (min-width: 1400px) {
   .home_image {
     width: 20vw;
     height: 30vh;
   }
   .cadre {
+    width: 40vw;
+  }
+  .selection {
     width: 40vw;
   }
 }

@@ -1,7 +1,8 @@
-<h1>Créer un post</h1>
+<h1 class="display-6">Créer un post</h1>
 <form class="container-fluid d-flex flex-column align-items-center" action="" method="post">
 
-	<select name="theme_id" id="theme_id" required>
+
+	<select class="selection form-select" name="theme_id" id="theme_id" required>
 	<option value="">Sélectionnez un thème</option>
 		{% for category in categories %}
 			<optgroup label="{{category.name}}">
@@ -15,7 +16,8 @@
 	</select>
 
 
-	<div class="container w-50 pt-4 pb-2 bg-primary">
+
+	<div class="message_text container w-50 pt-4 pb-2">
 		<input type="text" class="form-control mb-3" name="subject" id="subject" placeholder="Nom de votre sujet" maxlength="255" required>
 	</div>
 	<div class="container w-50 pt-4 pb-2 my-4 bg-light shadow ">
@@ -25,4 +27,5 @@
 </div>
 <div class="container w-50 d-flex justify-content-center">
 	<input type="submit" class="btn btn-primary" value="Envoyer le message">
-</div></form>
+</div>
+</form>
