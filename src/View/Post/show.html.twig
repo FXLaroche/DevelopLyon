@@ -24,6 +24,10 @@
 						<p class="col-md-10">{{ post.message }}</p>
 					</div>
 					<div class="row align-item-end text-end">
+					{% if post.user_id == id or role == "admin" %}
+					<p><a href="/post/edit?id={{post.post_id}}"><button class="btn btn-primary">Editer</button></a></p>
+					<p><a href="/post/delete?id={{post.post_id}}"><button class="btn btn-primary">Supprimer</button></a></p>
+					{% endif %}
 						<p>le
 							{{ post.date|date("d/m/Y") }}
 							à
