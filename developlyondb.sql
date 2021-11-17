@@ -37,8 +37,8 @@ CREATE TABLE message(
 id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 user_id INT NOT NULL, 
 FOREIGN KEY (user_id) REFERENCES user(id),
-theme_id INT NOT NULL, 
-FOREIGN KEY (theme_id) REFERENCES theme(id),
+post_id INT NOT NULL, 
+FOREIGN KEY (post_id) REFERENCES post(id),
 date DATETIME DEFAULT CURRENT_TIMESTAMP,
 message TEXT NOT NULL);
 
@@ -54,8 +54,8 @@ word VARCHAR(63) NOT NULL,
 date_last DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 nb_searched INT NOT NULL);
 
-INSERT INTO category(name, picture_link) VALUES("PHP", "picture.png");
-INSERT INTO category(name, picture_link) VALUES("JS", "picture.png");
+INSERT INTO category(name, picture_link) VALUES("PHP", "PHP.png");
+INSERT INTO category(name, picture_link) VALUES("JavaScript", "javascript.png");
 INSERT INTO theme(category_id, name) VALUES(1, "POO for noobs");
 INSERT INTO user(nickname, password, picture_link, email, role) VALUES("Effix", "1234", "pic.gif", "fx.laroche@gmail.com", "Admin");
 SELECT * FROM post;

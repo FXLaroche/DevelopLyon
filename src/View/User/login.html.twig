@@ -7,14 +7,14 @@
 {% block content %}
 
 
-	<h1>Connexion à votre compte</h1>
+	<h1 class="display-6">Connexion à votre compte</h1>
 	<form action="" method="post">
 
-		<div class="container w-50">
+		<div class="container">
 			<label for="email">E-mail :</label>
 			<input type="email" class="form-control mb-3" name="email" id="email" placeholder="example@example.com" maxlength="255" required>
 		</div>
-		<div class="container w-50">
+		<div class="container">
 			<label for="password">Mot de passe :</label>
 			<input type="password" class="form-control mb-3" name="password" id="password" placeholder="Mot de passe" required>
 		</div>
@@ -22,7 +22,7 @@
 			<input type="submit" value="Se connecter" class="btn btn-primary mb-2">
 		</div>
 	</form>
-	<h2 class="py-3">Vous n'avez pas de compte ? Inscrivez-vous !</h2>
+	<h2 class="display-6 py-3">Vous n'avez pas de compte ? Inscrivez-vous !</h2>
 
 	<a href="/user/add" class="container d-flex flex-column align-items-center">
 		<button class="btn btn-primary mb-2">S'inscrire</button>
