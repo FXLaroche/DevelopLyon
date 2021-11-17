@@ -24,6 +24,9 @@
 								{% set url = '/posts/index?theme' %}
 								{% include "dropdown.html.twig" %}
 							{% endif %}
+							{% if nickname is not empty %}
+								<a href="/post/add" class="nav-link fw-bold"><b>Ajouter un post</b></a>
+							{% endif %}
 
 						</ul>
 					</div>
