@@ -13,7 +13,7 @@ class MessageManager extends AbstractManager
 
         $statement->bindValue('user_id', $message['user_id'], \PDO::PARAM_INT);
         $statement->bindValue('post_id', $message['post_id'], \PDO::PARAM_INT);
-        $statement->bindValue('date', $message['date'], \PDO::PARAM_INT);
+        $statement->bindValue('date', $message['date'], \PDO::PARAM_STR);
         $statement->bindValue('message', $message['message'], \PDO::PARAM_STR);
 
         $statement->execute();
@@ -27,6 +27,7 @@ class MessageManager extends AbstractManager
     {
         $query = 'SELECT us.nickname,
         us.picture_link,
+        me.id,
         me.message,
         me.date
         FROM ' . static::TABLE . ' as me JOIN
@@ -40,5 +41,22 @@ class MessageManager extends AbstractManager
         $statement->execute();
 
         return $statement->fetchAll();
+    }
+
+    public function update(array $message): void
+    {
+        $statement = $this->pdo->prepare("UPDATE " . self::TABLE . " SET user_id = :user_id,
+        post_id = :post_id,
+        date = :date,
+        message = :message 
+        WHERE id = :id");
+
+        $statement->bindValue('user_id', $message['user_id'], \PDO::PARAM_INT);
+        $statement->bindValue('post_id', $message['post_id'], \PDO::PARAM_INT);
+        $statement->bindValue('date', $message['date'], \PDO::PARAM_STR);
+        $statement->bindValue('message', $message['message'], \PDO::PARAM_STR);
+        $statement->bindValue('id', $message['id'], \PDO::PARAM_INT);
+
+        $statement->execute();
     }
 }

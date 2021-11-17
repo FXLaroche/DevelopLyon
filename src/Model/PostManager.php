@@ -94,6 +94,7 @@ class PostManager extends AbstractManager
         // prepared request
         $statement = $this->pdo->prepare("SELECT us.nickname,
         us.picture_link,
+        po.id,
         po.subject,
         po.date,
         po.message FROM " . static::TABLE . " AS po JOIN user AS us ON po.user_id = us.id WHERE po.id=:id");

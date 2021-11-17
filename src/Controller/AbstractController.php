@@ -143,7 +143,6 @@ abstract class AbstractController
             $params['profileOption'] = "S'inscrire";
             $params['profileLink'] = "add";
         }
-        var_dump($params);
         return $this->twig->render($template, $params);
     }
 }

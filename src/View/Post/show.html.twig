@@ -51,14 +51,42 @@
 								à
 								{{ message.date|date('H:i') }}</p>
 						</div>
+						{% if nickname == message.nickname %}
+							<div class="updateForm">
+								<form class="" action="Message/edit?id={{ message.id }}" method="post" accept-charset="UTF-8">
+									<input type="hidden" id="user_id" name="user_id" value="{{ id }}">
+									<input type="hidden" id="post_id" name="post_id" value="{{ post.id }}">
+									<input type="hidden" name="id" value="{{ message.id }}">
+									<p class="row">
+										<label>Modification du message :
+										</label>
+										<textarea class="form-controle" name="message">{{ message.message }}</textarea>
+									</p>
+									<p class="row">
+										<button class="form-controle" type="submit">Enregistrer les modifications</button>
+									</p>
+								</form>
+							</div>
+							<div class="row">
+								<form class="col" action="/message/delete" method="post">
+									<input type="hidden" id="post_id" name="post_id" value="{{ post.id }}">
+									<input type="hidden" name="id" value="{{ message.id }}">
+									<button type="submit" class="btn btn-primary mb-2">Supprimer le message</button>
+									<button type="button" class="btn btn-primary mb-2 updateButton">Modifier le message</button>
+								</form>
+							</div>
+						{% endif %}
 					</div>
 				</div>
 			{% endfor %}
 			{% if nickname is not empty %}
 				<div class="newmessage row">
-					<form method="post" accept-charset="UTF-8">
+					<form action="Message/add" method="post" accept-charset="UTF-8">
+						<input type="hidden" id="user_id" name="user_id" value="{{ id }}">
+						<input type="hidden" id="post_id" name="post_id" value="{{ post.id }}">
 						<p class="row">
-							<label>Nouveau message : </label>
+							<label>Nouveau message :
+							</label>
 							<textarea class="form-controle" name="message"></textarea>
 						</p>
 						<p class="row">
@@ -70,3 +98,6 @@
 		</div>
 	</div>
 {% endblock %}
+{% block javascript %}
+<script src="/assets/js/script.js">
+	{% endblock %}
