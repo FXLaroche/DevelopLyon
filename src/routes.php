@@ -19,7 +19,7 @@ return [
     'items/show' => ['ItemController', 'show', ['id']],
     'items/add' => ['ItemController', 'add',],
     'items/delete' => ['ItemController', 'delete',],
-    'Message/add' => ['MessageController', 'add',],
+    'post/Message/add' => ['MessageController', 'add',],
     'post/show' => ['PostController', 'show', ['id']],
     'post/add' => ['PostController', 'add',],
     'post/edit' => ['PostController', 'edit', ['id']],
@@ -28,4 +28,6 @@ return [
     'user/logout' => ['UserController', 'logout'],
     'themes/index' => ['ThemeController', 'listThemeByCategory', ['id']],
     'posts/index' => ['PostController', 'index', ['theme']],
+    'message/delete' => ['MessageController', 'delete', ['id']],
+    'post/Message/edit' => ['MessageController', 'edit', ['id']],
 ];
