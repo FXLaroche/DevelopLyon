@@ -64,6 +64,11 @@
 							<li class="nav-item">
 								<a href="/user/{{profileLink}}" class="nav-link px-2 link-dark">{{profileOption}}</a>
 							</li>
+							{% if role == 'admin' %}
+							<li class="nav-item">
+								<a href="/users" class="nav-link px-2 link-dark">Liste des utilisateurs</a>
+							</li>
+							{% endif %}
 						</ul>
 					</div>
 				</div>
