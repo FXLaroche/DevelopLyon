@@ -67,4 +67,3 @@ INSERT INTO theme(category_id, name) VALUES(4, "les requêtes complexes");
 INSERT INTO user(nickname, password, picture_link, email, role) VALUES('admin', '$2y$10$7Z5kYtIMAmm5f5bZIcvioeZZKgL0bBngfCO6onHP3TfzYVGYpSTuW', 'login.png', 'admin@develop.lyon', 'admin');
 INSERT INTO user(nickname, password, picture_link, email, role) VALUES('JC', '$2y$10$.tp0f4iv6.yLI3s3BXNDM.38k3/E47s4INlnsTRWHSSGtECtDmdJC', 'login.png', 'jc@wild.com', 'user');
 INSERT INTO user(nickname, password, picture_link, email, role) VALUES('Effixel', '$2y$10$834L3dsEpNMaeUu4nnpdfOYOaY7gF0JMLveXfBAC/Gmaj4vhpICGu', 'login.png', 'fxl@wild.com', 'user');
-
