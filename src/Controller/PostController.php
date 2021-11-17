@@ -93,6 +93,71 @@ class PostController extends AbstractController
         ]);
     }
 
+    public function edit($id): string
+    {
+        $userController = new UserController();
+        $userController->checkAuthentification();
+        $postData = $this->postManager->selectOneById($id);
+
+        if (!$userController->hasSameUserId($postData['user_id']) && $_SESSION['role'] !== 'admin') {
+            header('Location:/post/show?id=' . $id);
+        }
+
+        $error = [];
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $editedPost = array_map('trim', $_POST);
+
+            if (strlen($editedPost['subject']) > 255) {
+                $error[] = "Le titre est trop long.";
+            }
+            if (empty($editedPost['subject'])) {
+                $error[] = "Le titre est obligatoire.";
+            }
+
+            if (empty($editedPost['message'])) {
+                $error[] = "Vous devez rentrer un message.";
+            }
+
+            if (strlen($editedPost['keyword']) > 255) {
+                $error[] = "Vous avez trop de mots-clés.";
+            }
+
+            if (empty($error)) {
+                $editedPost['id'] = $postData['id'];
+                $this->postManager->edit($editedPost);
+                header('Location:/post/show?id=' . $id);
+            }
+        }
+
+        $categoryManager = new CategoryManager();
+        $themeManager = new ThemeManager();
+
+        $categories = $categoryManager->selectAll();
+        $themes = $themeManager->selectAll();
+
+        return $this->twigRender('Post/add.html.twig', [
+            'postContent' => $postData,
+            'errors' => $error,
+            'themes' => $themes,
+            'categories' => $categories,
+        ]);
+    }
+
+    public function delete($id)
+    {
+        $userController = new UserController();
+        $userController->checkAuthentification();
+        $postData = $this->postManager->selectOneById($id);
+        if (!$userController->hasSameUserId($postData['user_id']) && $_SESSION['role'] !== 'admin') {
+            header('Location:/post/show?id=' . $id);
+        } else {
+            $themeId = $postData['theme_id'];
+            $this->postManager->delete($id);
+            header('Location:/posts/index?theme=' . $themeId);
+        }
+    }
+
     /**
      * List result search
      */

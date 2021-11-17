@@ -24,6 +24,11 @@
 						<p class="col-md-10">{{ post.message }}</p>
 					</div>
 					<div class="post_date row align-item-end text-end" style="color: white;">
+					<div class="row align-item-end text-end">
+					{% if post.user_id == id or role == "admin" %}
+					<p><a href="/post/edit?id={{post.post_id}}"><button class="btn btn-primary">Editer</button></a></p>
+					<p><a href="/post/delete?id={{post.post_id}}"><button class="btn btn-primary">Supprimer</button></a></p>
+					{% endif %}
 						<p>le
 							{{ post.date|date("d/m/Y") }}
 							à
@@ -53,7 +58,7 @@
 							<div class="updateForm">
 								<form class="" action="Message/edit?id={{ message.id }}" method="post" accept-charset="UTF-8">
 									<input type="hidden" id="user_id" name="user_id" value="{{ id }}">
-									<input type="hidden" id="post_id" name="post_id" value="{{ post.id }}">
+									<input type="hidden" id="post_id" name="post_id" value="{{ post.post_id }}">
 									<input type="hidden" name="id" value="{{ message.id }}">
 									<p class="row">
 										<label>Modification du message :
@@ -67,7 +72,7 @@
 							</div>
 							<div class="row">
 								<form class="col" action="/message/delete" method="post">
-									<input type="hidden" id="post_id" name="post_id" value="{{ post.id }}">
+									<input type="hidden" id="post_id" name="post_id" value="{{ post.post_id }}">
 									<input type="hidden" name="id" value="{{ message.id }}">
 									<button type="submit" class="btn btn-primary mb-2">Supprimer le message</button>
 									<button type="button" class="btn btn-primary mb-2 updateButton">Modifier le message</button>
@@ -81,7 +86,7 @@
 				<div class="newmessage row">
 					<form action="Message/add" method="post" accept-charset="UTF-8">
 						<input type="hidden" id="user_id" name="user_id" value="{{ id }}">
-						<input type="hidden" id="post_id" name="post_id" value="{{ post.id }}">
+						<input type="hidden" id="post_id" name="post_id" value="{{ post.post_id }}">
 						<p class="row">
 							<label>Nouveau message :
 							</label>
