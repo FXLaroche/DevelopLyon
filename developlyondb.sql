@@ -14,7 +14,7 @@ role VARCHAR(16));
  
 CREATE TABLE category(
 id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-name VARCHAR(255),
+name VARCHAR(63),
 picture_link VARCHAR(255));
 
 CREATE TABLE theme(
@@ -28,7 +28,7 @@ id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 subject VARCHAR(255) NOT NULL,
 user_id INT NOT NULL, 
 FOREIGN KEY (user_id) REFERENCES user(id),
-post_id INT NOT NULL, 
+theme_id INT NOT NULL, 
 FOREIGN KEY (theme_id) REFERENCES theme(id) ON DELETE CASCADE,
 date DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 message TEXT NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE message(
 id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 user_id INT NOT NULL, 
 FOREIGN KEY (user_id) REFERENCES user(id),
-theme_id INT NOT NULL, 
+post_id INT NOT NULL, 
 FOREIGN KEY (post_id) REFERENCES post(id) ON DELETE CASCADE,
 date DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 message TEXT NOT NULL);
@@ -48,3 +48,23 @@ id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 word VARCHAR(63) NOT NULL,
 date_last DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 nb_searched INT NOT NULL);
+
+INSERT INTO category(name, picture_link) VALUES("PHP", "php.jpg");
+INSERT INTO category(name, picture_link) VALUES("JavaScript", "js.jpg");
+INSERT INTO category(name, picture_link) VALUES("Java", "java.jpg");
+INSERT INTO category(name, picture_link) VALUES("SQL", "sql.jpg");
+INSERT INTO theme(category_id, name) VALUES(1, "POO");
+INSERT INTO theme(category_id, name) VALUES(1, "PDO INITIALISATION");
+INSERT INTO theme(category_id, name) VALUES(1, "PDO IMPLEMENTATION");
+INSERT INTO theme(category_id, name) VALUES(1, "PDO DECONNEXION");
+INSERT INTO theme(category_id, name) VALUES(1, "PDO FORMULAIRES");
+INSERT INTO theme(category_id, name) VALUES(1, "PDO MISE A JOUR");
+INSERT INTO theme(category_id, name) VALUES(2, "Javascript pour les nuls");
+INSERT INTO theme(category_id, name) VALUES(3, "Java, la POO");
+INSERT INTO theme(category_id, name) VALUES(4, "SQL, premier pas");
+INSERT INTO theme(category_id, name) VALUES(4, "la modèlisation");
+INSERT INTO theme(category_id, name) VALUES(4, "les requêtes complexes");
+INSERT INTO user(nickname, password, picture_link, email, role) VALUES('admin', '$2y$10$7Z5kYtIMAmm5f5bZIcvioeZZKgL0bBngfCO6onHP3TfzYVGYpSTuW', 'login.png', 'admin@develop.lyon', 'admin');
+INSERT INTO user(nickname, password, picture_link, email, role) VALUES('JC', '$2y$10$.tp0f4iv6.yLI3s3BXNDM.38k3/E47s4INlnsTRWHSSGtECtDmdJC', 'login.png', 'jc@wild.com', 'user');
+INSERT INTO user(nickname, password, picture_link, email, role) VALUES('Effixel', '$2y$10$834L3dsEpNMaeUu4nnpdfOYOaY7gF0JMLveXfBAC/Gmaj4vhpICGu', 'login.png', 'fxl@wild.com', 'user');
+
