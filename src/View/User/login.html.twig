@@ -22,14 +22,17 @@
 			<input type="submit" value="Se connecter" class="btn btn-primary mb-2">
 		</div>
 	</form>
-	<h2 class="display-6 py-3">Vous n'avez pas de compte ? Inscrivez-vous !</h2>
+
+	<div class="container d-flex flex-column align-items-center" style="color: red" >
+	{% for error in errors %}
+		{{error}}
+	{% endfor %}
+	</div>
+
+	<h2 class="py-3">Vous n'avez pas de compte ? Inscrivez-vous !</h2>
 
 	<a href="/user/add" class="container d-flex flex-column align-items-center">
 		<button class="btn btn-primary mb-2">S'inscrire</button>
 	</a>
-
-
-	{% for error in errors %}
-		{{error}}
-	{% endfor %}
+	
 {% endblock %}
