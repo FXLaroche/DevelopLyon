@@ -166,11 +166,11 @@ class PostController extends AbstractController
 
         // clean $_POST data
         $searchInput = array_map('trim', $_POST);
-
+        $errors = [];
         // TODO validations (length, format...)
-        if (empty($searchInput)) {
-            $error = "veuillez saisir un critère de recherche";
-            return $this->twigRender('Post/search.html.twig', ['error' => $error]);
+        if ($searchInput['maRecherche'] === "") {
+            $errors[] = "veuillez saisir un critère de recherche";
+            return $this->twigRender('Post/search.html.twig', ['errors' => $errors]);
         } else {
             // if validation is ok, insert and redirection
             $postManager = new PostManager();
@@ -190,7 +190,7 @@ class PostController extends AbstractController
                     $updateSearch['nb_searched'] = $searchtab['nb_searched'] + 1;
                     $id = $searchManager->update($updateSearch);
                     if (!$id) {
-                        $error = "Problème technique lors de l'update search";
+                        $errors[] = "Problème technique lors de l'update search";
                     }
                     break;
                 }
@@ -203,11 +203,11 @@ class PostController extends AbstractController
                 $newSearch['nb_searched'] = 1;
                 $id = $searchManager->insert($newSearch);
                 if (!$id) {
-                    $error = "Problème technique lors de l'insert search";
+                    $errors[] = "Problème technique lors de l'insert search";
                 }
             }
 
-            return $this->twigRender('Post/search.html.twig', ['results' => $results]);
+            return $this->twigRender('Post/search.html.twig', ['results' => $results, 'errors' => $errors]);
         }
     }
 

@@ -19,7 +19,7 @@ return [
     'items/show' => ['ItemController', 'show', ['id']],
     'items/add' => ['ItemController', 'add',],
     'items/delete' => ['ItemController', 'delete',],
-    'post/Message/add' => ['MessageController', 'add',],
+    'Message/add' => ['MessageController', 'add',],
     'post/show' => ['PostController', 'show', ['id']],
     'post/add' => ['PostController', 'add',],
     'post/edit' => ['PostController', 'edit', ['id']],
