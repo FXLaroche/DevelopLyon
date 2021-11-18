@@ -93,6 +93,7 @@ class UserController extends AbstractController
             $id = trim($_POST['id']);
             $userManager = new UserManager();
             $userManager->delete((int)$id);
+            session_destroy();
             header('Location:/users');
         }
     }

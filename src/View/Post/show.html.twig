@@ -1,28 +1,29 @@
 {% extends "layout.html.twig" %}
 {% block title %}
-	<h1>Afficher un poste</h1>
+	{{parent()}}{{post.subject}}
 {% endblock %}
-{% block stylesheet %}<link rel="stylesheet" href="/assets/css/searchStyle.css">
+{% block stylesheet %}
+<link rel="stylesheet" href="/assets/css/searchStyle.css">
 {% endblock %}
 {% block content %}
+<h1>{{post.subject}}</h1>
 	<div class="container">
 
-		<div class="searchResult container">
+		<div class="searchResult container d-flex flex-column justify-content-around">
 
 			<div class="post row">
 				<div class="data_user col-lg-2 text-center">
-					{% if post.picture_link == NULL %}
-						<img src="/assets/images/index.png" class="img-fluid rounded-circle" alt="{{ post.nickname }} photo">
-					{% else %}
-						<img src="/assets/images/{{ post.picture_link }}" class="img-fluid rounded-circle" alt="{{ post.nickname }} photo">
-					{% endif %}
-					<p>{{ post.nickname }}</p>
+					<div class="d-flex align-items-center justify-content-center m-3">
+                		<div class="profile_image" style="background-image: url('/assets/images/{{post.picture_link}}')"></div>
+            		</div>
+					<p style="color: white;"><em>{{ post.nickname }}</em></p>
 				</div>
 				<div class="data_post col-lg-10 align-items-start">
-					<div>
-						<p class="col-md-10">{{ post.subject }}</p>
+					<div class="post_text" style="color: white;">
+						<p class="col-md-10"><strong>{{ post.subject }}</strong></p>
 						<p class="col-md-10">{{ post.message }}</p>
 					</div>
+					<div class="post_date row align-item-end text-end" style="color: white;">
 					<div class="row align-item-end text-end">
 					{% if post.user_id == id or role == "admin" %}
 					<p><a href="/post/edit?id={{post.post_id}}"><button class="btn btn-primary">Editer</button></a></p>
@@ -38,24 +39,22 @@
 			{% for message in messages %}
 				<div class="message row">
 					<div class="data_user col-lg-2 text-center">
-						{% if message.picture_link == NULL %}
-							<img src="/assets/images/index.png" class="img-fluid rounded-circle" alt="{{ message.nickname }} photo">
-						{% else %}
-							<img src="/assets/images/{{ message.picture_link }}" class="img-fluid rounded-circle" alt="{{ message.nickname }} photo">
-						{% endif %}
-						<p>{{ message.nickname }}</p>
+						<div class="d-flex align-items-center justify-content-center m-3">
+                			<div class="profile_image" style="background-image: url('/assets/images/{{message.picture_link}}')"></div>
+            			</div>
+						<p><em>{{ message.nickname }}</em></p>
 					</div>
 					<div class="data_post col-lg-10 align-items-start">
-						<div>
+						<div class="post_text">
 							<p class="col-md-10">{{ message.message }}</p>
 						</div>
-						<div class="row align-item-end text-end">
+						<div class="post_date row align-item-end text-end">
 							<p>le
 								{{ message.date|date("d/m/Y") }}
 								à
 								{{ message.date|date('H:i') }}</p>
 						</div>
-						{% if nickname == message.nickname %}
+						{% if nickname == message.nickname or role == "admin" %}
 							<div class="updateForm">
 								<form class="" action="Message/edit?id={{ message.id }}" method="post" accept-charset="UTF-8">
 									<input type="hidden" id="user_id" name="user_id" value="{{ id }}">
@@ -64,10 +63,10 @@
 									<p class="row">
 										<label>Modification du message :
 										</label>
-										<textarea class="form-controle" name="message">{{ message.message }}</textarea>
+										<textarea class="form-control" name="message">{{ message.message }}</textarea>
 									</p>
 									<p class="row">
-										<button class="form-controle" type="submit">Enregistrer les modifications</button>
+										<button class="form-control" type="submit">Enregistrer les modifications</button>
 									</p>
 								</form>
 							</div>
@@ -91,10 +90,10 @@
 						<p class="row">
 							<label>Nouveau message :
 							</label>
-							<textarea class="form-controle" name="message"></textarea>
+							<textarea class="form-control" name="message"></textarea>
 						</p>
 						<p class="row">
-							<button class="form-controle" type="submit">Poster le message</button>
+							<button class="form-control" type="submit">Poster le message</button>
 						</p>
 					</form>
 				</div>
