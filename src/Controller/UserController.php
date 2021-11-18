@@ -15,15 +15,15 @@ class UserController extends AbstractController
 
 
             if (empty($user['nickname'])) {
-                $errors = 'The nickname is required';
+                $errors = 'Veuillez saisir un identifiant';
             } elseif (empty($user['email'])) {
-                $errors = 'The e-mail is required';
+                $errors = 'Veuillez saisir un e-mail';
             } elseif (empty($user['password'])) {
-                $errors = 'The password is required';
+                $errors = 'Veuillez saisir un mot de passe';
             } else {
                 $userManager = new UserManager();
                 if ($userManager->registerUser($user) === 0) {
-                    $errors = 'The email is already in use!!';
+                    $errors = 'Cet email est déjà utilisé!!';
                 } else {
                     header('Location: /user/login');
                 }
@@ -83,7 +83,7 @@ class UserController extends AbstractController
                 move_uploaded_file($tmpName, 'assets/images/' . $file);
                 $user = $userManager->saveNewImage($file);
             } else {
-                echo "You can't upload this file";
+                echo "Vous ne pouvez pas charger ce fichier";
             }
 
             header('Location: /user/show?id=' . $id);
