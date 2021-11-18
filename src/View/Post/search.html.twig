@@ -1,6 +1,7 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}{{parent()}}Résultats de la recherche
+{% block title %}
+	{{parent()}}Résultats de la recherche
 {% endblock %}
 
 {% block stylesheet %}<link rel="stylesheet" href="/assets/css/searchStyle.css">
@@ -11,6 +12,12 @@
 	<div class="container">
 
 		<h1>Résultat de votre recherche</div>
+
+		<div class="container d-flex flex-column align-items-center" style="color: red">
+			{% for error in errors %}
+				{{error}}
+			{% endfor %}
+		</div>
 
 		<div class="searchResult container">
 			{% for result in results %}
