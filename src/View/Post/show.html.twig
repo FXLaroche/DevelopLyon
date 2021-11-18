@@ -9,10 +9,11 @@
 	<h1>{{post.subject}}</h1>
 	<div class="container">
 
-		<div class="searchResult container d-flex flex-column justify-content-around">
+		<div class="container d-flex flex-column justify-content-around">
 
+			<div>
 			<div class="post row">
-				<div class="data_user col-lg-2 text-center">
+				<div class="col-lg-2 text-center">
 					<div class="d-flex align-items-center justify-content-center m-3">
 						<div class="profile_image" style="background-image: url('/assets/images/{{post.picture_link}}')"></div>
 					</div>
@@ -20,7 +21,7 @@
 						<em>{{ post.nickname }}</em>
 					</p>
 				</div>
-				<div class="data_post col-lg-10 align-items-start">
+				<div class="col-lg-10 align-items-start">
 					<div class="post_text" style="color: white;">
 						<p class="col-md-10">
 							<strong>{{ post.subject }}</strong>
@@ -47,6 +48,7 @@
 								{{ post.date|date('H:i') }}</p>
 						</div>
 					</div>
+				</div>
 				</div>
 				{% for message in messages %}
 					<div class="message row">
