@@ -15,15 +15,15 @@ class UserController extends AbstractController
 
 
             if (empty($user['nickname'])) {
-                $errors = 'The nickname is required';
+                $errors = 'Veuillez saisir un identifiant';
             } elseif (empty($user['email'])) {
-                $errors = 'The e-mail is required';
+                $errors = 'Veuillez saisir un e-mail';
             } elseif (empty($user['password'])) {
-                $errors = 'The password is required';
+                $errors = 'Veuillez saisir un mot de passe';
             } else {
                 $userManager = new UserManager();
                 if ($userManager->registerUser($user) === 0) {
-                    $errors = 'The email is already in use!!';
+                    $errors = 'Cet email est déjà utilisé!!';
                 } else {
                     header('Location: /user/login');
                 }
@@ -35,14 +35,20 @@ class UserController extends AbstractController
 
     public function index(): string
     {
+        $select = "";
         $this->checkIfRoleIsAdminOrUser();
         $userManager = new UserManager();
         $users = $userManager->selectAll('nickname');
+        foreach ($users as $user) {
+            if (!empty($user['password'])) {
+                $select[] = $user;
+            }
+        }
         if (isset($_POST['suppr'])) {
-            $ids = implode(",", $_POST["suppr"]);
+            $ids = $_POST["suppr"];
             $userManager->deleteAll($ids);
         }
-        return $this->twigRender('User/index.html.twig', ['users' => $users]);
+        return $this->twigRender('User/index.html.twig', ['users' => $select]);
     }
 
     public function show(int $id): string
@@ -77,7 +83,7 @@ class UserController extends AbstractController
                 move_uploaded_file($tmpName, 'assets/images/' . $file);
                 $user = $userManager->saveNewImage($file);
             } else {
-                echo "You can't upload this file";
+                echo "Vous ne pouvez pas charger ce fichier";
             }
 
             header('Location: /user/show?id=' . $id);
@@ -89,10 +95,10 @@ class UserController extends AbstractController
 
     public function delete()
     {
+        $userManager = new UserManager();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $id = trim($_POST['id']);
-            $userManager = new UserManager();
-            $userManager->delete((int)$id);
+            $user = array_map('trim', $_SESSION);
+            $userManager->deleteUser(intval($user['id']));
             session_destroy();
             header('Location:/users');
         }
@@ -152,7 +158,8 @@ class UserController extends AbstractController
 
     public function checkIfUserAsAccessToPage($id)
     {
-        if (!isset($_SESSION) || $_SESSION['id'] != $id) {
+        if ($_SESSION['role']) {
+        } elseif (!isset($_SESSION) || $_SESSION['id'] != $id) {
             header('Location: /');
         }
     }

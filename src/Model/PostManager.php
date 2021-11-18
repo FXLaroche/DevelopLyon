@@ -56,7 +56,7 @@ class PostManager extends AbstractManager
          count(me.id) AS numberMessage FROM " . self::TABLE . " AS po JOIN user AS us ON po.user_id = us.id
          LEFT JOIN message AS me ON me.post_id = po.id
          WHERE keyword LIKE :search OR subject LIKE :search
-         GROUP BY po.id");
+         GROUP BY po.id  ORDER BY po.date DESC LIMIT 0, 10");
         $statement->bindValue('search', $search, \PDO::PARAM_STR);
 
         $statement->execute();
@@ -93,7 +93,7 @@ class PostManager extends AbstractManager
         FROM ' . static::TABLE . ' as po LEFT JOIN
         message as me ON me.post_id = po.id JOIN
         theme as th ON po.theme_id = th.id WHERE
-        theme_id = :idcategory GROUP BY po.id';
+        theme_id = :idcategory GROUP BY po.id ORDER BY po.date DESC LIMIT 0, 10';
         if ($orderBy) {
             $query .= ' ORDER BY ' . $orderBy . ' ' . $direction;
         }
