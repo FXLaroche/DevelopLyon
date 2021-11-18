@@ -35,7 +35,7 @@ class UserController extends AbstractController
 
     public function index(): string
     {
-        $select = "";
+        $select = [];
         $this->checkIfRoleIsAdminOrUser();
         $userManager = new UserManager();
         $users = $userManager->selectAll('nickname');
