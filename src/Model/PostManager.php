@@ -10,7 +10,7 @@ class PostManager extends AbstractManager
 
     public function create(array $postData): int
     {
-        $query = "INSERT INTO " . self::TABLE . "(subject, user_id, theme_id, message, keyword) 
+        $query = "INSERT INTO " . self::TABLE . " (subject, user_id, theme_id, message, keyword) 
             VALUES(:subject, :user_id, :theme_id, :message, :keyword)";
         $statement = $this->pdo->prepare($query);
 
