@@ -37,9 +37,20 @@ class UserManager extends AbstractManager
         return $statement->execute();
     }
 
+    public function deleteUser(int $id): bool
+    {
+        $statement = $this->pdo->prepare("UPDATE " . self::TABLE . " SET password = :password WHERE id = :id");
+        $statement->bindValue(':password', '', \PDO::PARAM_STR);
+        $statement->bindValue(':id', $id, \PDO::PARAM_INT);
+
+        return $statement->execute();
+    }
+
     public function deleteAll($ids): void
     {
-        $this->pdo->query("DELETE FROM user WHERE id IN ($ids);");
+        foreach ($ids as $id) {
+            $this->deleteUser($id);
+        }
     }
 
     public function getLoginData(string $email): array

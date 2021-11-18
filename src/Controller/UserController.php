@@ -35,14 +35,20 @@ class UserController extends AbstractController
 
     public function index(): string
     {
+        $select = "";
         $this->checkIfRoleIsAdminOrUser();
         $userManager = new UserManager();
         $users = $userManager->selectAll('nickname');
+        foreach ($users as $user) {
+            if (!empty($user['password'])) {
+                $select[] = $user;
+            }
+        }
         if (isset($_POST['suppr'])) {
-            $ids = implode(",", $_POST["suppr"]);
+            $ids = $_POST["suppr"];
             $userManager->deleteAll($ids);
         }
-        return $this->twigRender('User/index.html.twig', ['users' => $users]);
+        return $this->twigRender('User/index.html.twig', ['users' => $select]);
     }
 
     public function show(int $id): string
@@ -89,10 +95,10 @@ class UserController extends AbstractController
 
     public function delete()
     {
+        $userManager = new UserManager();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $id = trim($_POST['id']);
-            $userManager = new UserManager();
-            $userManager->delete((int)$id);
+            $user = array_map('trim', $_SESSION);
+            $userManager->deleteUser(intval($user['id']));
             session_destroy();
             header('Location:/users');
         }
@@ -152,7 +158,8 @@ class UserController extends AbstractController
 
     public function checkIfUserAsAccessToPage($id)
     {
-        if (!isset($_SESSION) || $_SESSION['id'] != $id) {
+        if ($_SESSION['role']) {
+        } elseif (!isset($_SESSION) || $_SESSION['id'] != $id) {
             header('Location: /');
         }
     }
