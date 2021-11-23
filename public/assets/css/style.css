@@ -19,6 +19,9 @@ a {
   font-family: "Varela Round", sans-serif;
   text-decoration: none;
 }
+p {
+  word-wrap: normal;
+}
 .user {
   background-color: white;
   padding: 10px;

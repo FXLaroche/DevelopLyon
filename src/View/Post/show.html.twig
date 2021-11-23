@@ -26,7 +26,7 @@
 						<p class="col-md-10">
 							<strong>{{ post.subject }}</strong>
 						</p>
-						<p class="col-md-10">{{ post.message }}</p>
+						<p class="col-md-10" style="white-space: pre-line">{{post.message}}</p>
 					</div>
 					<div class="post_date row align-item-end text-end" style="color: white;">
 						<div class="row align-item-end text-end">
@@ -62,7 +62,7 @@
 						</div>
 						<div class="data_post col-lg-10 align-items-start">
 							<div class="post_text">
-								<p class="col-md-10">{{ message.message }}</p>
+								<p class="col-md-10" style="white-space: pre-line">{{ message.message }}</p>
 							</div>
 							<div class="post_date row align-item-end text-end">
 								<p>le
@@ -123,5 +123,7 @@
 		</div>
 	{% endblock %}
 	{% block javascript %}
-	<script src="/assets/js/script.js">
+	
+	<script src="/assets/js/script.js"></script>
+	{{parent()}}
 		{% endblock %}
