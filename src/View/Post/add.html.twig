@@ -1,0 +1,17 @@
+{% extends "layout.html.twig" %}
+{% block title %}
+	{{parent()}}Creation d'un post
+{% endblock %}
+{% block content %}
+
+	{% include "Post/_form.html.twig" %}
+
+	{% for error in errors %}
+
+		<p>{{error}}</p>
+
+	{% endfor %}
+	<div class="container w-50 d-flex justify-content-center mb-2">
+	<a href="/{% if postContent is defined %}post/show?id={{postContent.id}} {% endif %}"><button class="btn btn-primary">Annuler</button></a>
+</div>
+{% endblock %}

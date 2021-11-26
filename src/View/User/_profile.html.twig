@@ -1,0 +1,26 @@
+<h1 class="display-6">Modification du profil</h1>
+<form  class="d-flex flex-column"name="image" enctype="multipart/form-data" method="post">
+	<div class="container d-flex flex-column align-items-center justify-content-center">
+		<div class="profile_image p-2" style="background-image: url('/assets/images/{{user.picture_link}}')"></div>
+		<input type="file" class="p-2" name="profile_image">
+		<p class="p-2">The image must be under 400ko. You can only use .png .jpg .jpeg or .gif</p>
+	</div>
+	<div class="container form-group">
+		<input type="hidden" class="form-control mb-3" value="{{ user.id }}" name="id">
+	</div>
+	<div class="container form-group">
+		<input type="text" class="form-control mb-3" value="{{ user.nickname }}" name="nickname">
+	</div>
+	<div class="container form-group">
+		<input type="text" class="form-control mb-3" value="{{ user.email }}" name="email">
+	</div>
+	<div class="container form-group">
+		<input type="password" class="form-control mb-3" placeholder="Mot de passe" name="password" required>
+	</div>
+	<div class=" container d-flex flex-column align-items-center">
+		<input type="submit" value="Sauvegarder les modifications" class="btn btn-primary mb-2">
+	</div>
+	<div class="container d-flex flex-column align-items-center">
+		<a href="/user/show?id={{user.id}}" class="btn btn-primary mb-2">Retour</a>
+	</div>
+</form>

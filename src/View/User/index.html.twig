@@ -1,0 +1,37 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+    {{parent()}}Liste des utilisateurs
+{% endblock %}
+
+{% block content %}
+    <h1 class="display-6">Liste des utilisateurs</h1>
+    <div class="container d-flex justify-content-center">
+    <button class="btn btn-primary mb-2" name="selection" onclick='toutcocher()'>Sélectionner tout</button>
+    </div>
+    <form action="" method="post" name="checkbox">
+        <div class="container d-flex flex-column align-items-center">
+        {% for user in users %}
+        <div class="user">
+            <input type="checkbox" name="suppr[]" value ="{{user.id}}">
+            <a href="/user/show?id={{ user.id }}">{{ user.nickname }}</a>
+        </div>
+        {% else %}
+            <p>Aucun utilisateur</p>
+        {% endfor %}
+        <button class="btn btn-primary mb-2">Supprimer les utilisateurs</button>
+        </div>
+    </form>
+{% endblock %}
+{% block javascript %}
+<script>
+function toutcocher()
+{
+    for(i=0;i<document.checkbox.length;i++) {
+        if(document.checkbox.elements[i].type=="checkbox") {
+            document.checkbox.elements[i].checked=true;
+        }
+    }
+}
+</script>
+{% endblock %}

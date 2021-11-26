@@ -1,0 +1,18 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+		<h1 class="display-6">Bienvenue sur le forum DevelopLyon !</h1>
+		<div class="container-fluid d-flex">
+		<div class="container-fluid box_home">
+			{% for category in categorys %}
+				<div class="box_home_box">
+					<a class="h2_category" href="themes/index?id={{ category.id }}">
+						<div class="home_image d-flex align-items-center justify-content-center" style="background-image: url('/assets/images/{{category.picture_link}}')">
+							<h2 class="h2_category">{{ category.name }}</h2>
+						</div>
+					</a>
+				</div>
+			{% endfor %}	
+		</div>
+		</div>
+{% endblock %}

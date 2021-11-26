@@ -1,0 +1,38 @@
+{% extends 'layout.html.twig' %}
+
+{% block stylesheet %}{% endblock %}
+{% block title %}
+	{{parent()}}Login
+{% endblock %}
+{% block content %}
+
+
+	<h1 class="display-6">Connexion à votre compte</h1>
+	<form action="" method="post">
+
+		<div class="container">
+			<label for="email">E-mail :</label>
+			<input type="email" class="form-control mb-3" name="email" id="email" placeholder="example@example.com" maxlength="255" required>
+		</div>
+		<div class="container">
+			<label for="password">Mot de passe :</label>
+			<input type="password" class="form-control mb-3" name="password" id="password" placeholder="Mot de passe" required>
+		</div>
+		<div class="container d-flex flex-column align-items-center pt-4">
+			<input type="submit" value="Se connecter" class="btn btn-primary mb-2">
+		</div>
+	</form>
+
+	<div class="container d-flex flex-column align-items-center" style="color: red" >
+	{% for error in errors %}
+		{{error}}
+	{% endfor %}
+	</div>
+
+	<h2 class="py-3">Vous n'avez pas de compte ? Inscrivez-vous !</h2>
+
+	<a href="/user/add" class="container d-flex flex-column align-items-center">
+		<button class="btn btn-primary mb-2">S'inscrire</button>
+	</a>
+	
+{% endblock %}

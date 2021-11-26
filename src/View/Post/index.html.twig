@@ -1,0 +1,35 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+    {{parent()}}Liste des posts
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<h1 class="display-6">Liste des posts</h1>
+    <div class="listTheme row justify-content-center">
+			{% for post in posts %}
+
+				<div class="theme col-xs-10 col-sm-5">
+
+					<a class="liens" href="/post/show?id={{ post.id }}">
+						<div class="text-theme">
+							<h2 class="h2-theme">{{ post.subject }}</h2>
+						</div>
+					</a>
+					<div class="row detail-theme">
+						<div class="sujets col">
+							<p>{{ post.numberMessage }}
+								messages actuels</p>
+						</div>
+						<div class="actu col">
+							<p>Dernière actualité le {{ post.lastModify|date("d/m/Y") }}
+							</p>
+						</div>
+					</div>
+
+				</div>
+
+			{% endfor %}
+    </div>
+{% endblock %}
