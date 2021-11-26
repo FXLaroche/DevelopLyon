@@ -33,6 +33,7 @@ class MessageController extends AbstractController
             $messageManager = new MessageManager();
             $messageManager->insert($message);
             $messages = $messageManager->selectAllMessageForOnePost((int)$message['post_id']);
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
             return $this->twigRender('Post/show.html.twig', ['post' => $post, 'messages' => $messages]);
         } else {
             $errors[] = "Erreur technique.";
@@ -80,6 +81,7 @@ class MessageController extends AbstractController
             $messageManager = new MessageManager();
             $messageManager->update($message);
             $messages = $messageManager->selectAllMessageForOnePost((int)$message['post_id']);
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
             return $this->twigRender('Post/show.html.twig', ['post' => $post, 'messages' => $messages]);
         } else {
             $errors[] = "Erreur technique.";
