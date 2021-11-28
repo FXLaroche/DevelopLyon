@@ -34,7 +34,7 @@ abstract class AbstractController
      */
     public function urlContains($expr)
     {
-        $regex = '/\/' . $expr . '\//';
+        $regex = '/\/' . $expr . '/';
         $url = $_SERVER['REQUEST_URI'];
         if (preg_match($regex, $url) === 1) {
             return true;
@@ -47,7 +47,7 @@ abstract class AbstractController
     {
         $postData = [];
         $postManager = new PostManager();
-        if ($this->urlContains('post') && !$this->urlContains('add') && !$this->urlContains('Message')) {
+        if ($this->urlContains('post\/') && !$this->urlContains('add') && !$this->urlContains('Message')) {
             $postId = (int)trim($_GET['id']);
             $postData = $postManager->selectPostTreeData($postId);
         }
